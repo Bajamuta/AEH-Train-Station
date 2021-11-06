@@ -8,7 +8,7 @@ namespace TrainStation.Data
     {
         public static void Initialize(ApplicationDbContext context)
         {
-            // Look for any students.
+            // Look for any employees.
             if (context.Employee.Any())
             {
                 return;   // DB has been seeded
