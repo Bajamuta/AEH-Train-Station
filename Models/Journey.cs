@@ -8,6 +8,8 @@ namespace TrainStation.Models
     {
         [Key]
         public int ID { get; set; }
+        public int DayID { get; set; }
+        public Day Day { get; set; }
         public int StatusID { get; set; }
         public Status Status { get; set; }
         public int RideID { get; set; }
@@ -25,6 +27,6 @@ namespace TrainStation.Models
         public DateTime EndingDateTime { get; set; }
         [DataType(DataType.Currency)]
         public decimal TicketBasePrice { get; set; }
-        public ICollection<Ticket> Tickets { get; set; }
+        public IList<Tickets> TicketsList { get; set; }
     }
 }

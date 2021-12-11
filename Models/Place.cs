@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TrainStation.Models
@@ -11,5 +12,7 @@ namespace TrainStation.Models
         [DataType(DataType.PostalCode)]
         public int PostalCode { get; set; }
         public TimeSpan TravelTime { get; set; }
+        
+        public ICollection<Journey> Journeys { get; set; }
     }
 }

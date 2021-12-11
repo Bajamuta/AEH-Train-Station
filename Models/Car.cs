@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TrainStation.Models
@@ -14,5 +15,8 @@ namespace TrainStation.Models
         public int Sitting { get; set; }
         public int Standing { get; set; }
         public Boolean Available { get; set; }
+
+        public ICollection<Ticket> Tickets { get; set; }
+        public IList<Cars> CarsList { get; set; }
     }
 }

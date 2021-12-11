@@ -10,6 +10,7 @@ namespace TrainStation.Models
         public int ID { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+        
         public ICollection<Journey> Journeys { get; set; }
     }
 }

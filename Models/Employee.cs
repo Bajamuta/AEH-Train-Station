@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TrainStation.Models
@@ -14,5 +15,8 @@ namespace TrainStation.Models
         public DateTime BirthDate { get; set; }
         public int PermissionID { get; set; }
         public Permission Type { get; set; }
+        
+        public IList<Conductors> ConductorsList { get; set; }
+        public ICollection<Ride> Rides { get; set; }
     }
 }

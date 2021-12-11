@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TrainStation.Models
@@ -11,5 +12,7 @@ namespace TrainStation.Models
         [DataType(DataType.Date)]
         public DateTime ProductionDate { get; set; }
         public Boolean Available { get; set; }
+        
+        public ICollection<Ride> Rides { get; set; }
     }
 }

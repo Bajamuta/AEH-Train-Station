@@ -11,9 +11,12 @@ namespace TrainStation.Models
         public string Name { get; set; }
         public int EngineID { get; set; }
         public Engine Engine { get; set; }
-        public ICollection<Car> Cars { get; set; }
+        
+        public IList<Cars> CarsList { get; set; }
         public int DriverID { get; set; }
         public Employee Driver { get; set; }
-        public ICollection<Employee> Conductors { get; set; }
+        
+        public IList<Conductors> ConductorsList { get; set; }
+        public ICollection<Journey> Journeys { get; set; }
     }
 }

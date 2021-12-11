@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TrainStation.Models
@@ -16,5 +17,7 @@ namespace TrainStation.Models
         public DateTime SoldDateTime { get; set; }
         [DataType(DataType.Currency)]
         public decimal SoldPrice { get; set; }
+        
+        public IList<Tickets> TicketsList { get; set; }
     }
 }
