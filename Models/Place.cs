@@ -13,6 +13,7 @@ namespace TrainStation.Models
         public int PostalCode { get; set; }
         public TimeSpan TravelTime { get; set; }
         
-        public ICollection<Journey> Journeys { get; set; }
+        public ICollection<Journey> JourneysStarting { get; set; }
+        public ICollection<Journey> JourneysDestinations { get; set; }
     }
 }

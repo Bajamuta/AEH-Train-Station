@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TrainStation.Models;
@@ -23,6 +24,8 @@ namespace TrainStation.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            
             modelBuilder.Entity<Employee>()
                 .HasOne<Permission>(e => e.Type)
                 .WithMany(p => p.Employees)
@@ -97,15 +100,15 @@ namespace TrainStation.Data
 
             modelBuilder.Entity<Journey>()
                 .HasOne<Place>(j => j.StartingPlace)
-                .WithMany(p => p.Journeys)
+                .WithMany(p => p.JourneysStarting)
                 .HasForeignKey(j => j.StartingPlaceID)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Journey>()
+            /*modelBuilder.Entity<Journey>()
                 .HasOne<Place>(j => j.DestinationPlace)
-                .WithMany(p => p.Journeys)
+                .WithMany(p => p.JourneysDestinations)
                 .HasForeignKey(j => j.DestinationPlaceID)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.SetNull);*/
 
             modelBuilder.Entity<Tickets>()
                 .HasOne<Ticket>(t => t.Ticket)

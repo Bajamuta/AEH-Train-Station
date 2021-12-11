@@ -10,8 +10,8 @@ using TrainStation.Data;
 namespace TrainStation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211210200509_AddOther")]
-    partial class AddOther
+    [Migration("20211211020114_NewEntitiesAgain")]
+    partial class NewEntitiesAgain
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -237,9 +237,6 @@ namespace TrainStation.Migrations
                     b.Property<DateTime>("ProductionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("RideID")
-                        .HasColumnType("int");
-
                     b.Property<int>("Sitting")
                         .HasColumnType("int");
 
@@ -248,9 +245,51 @@ namespace TrainStation.Migrations
 
                     b.HasKey("ID");
 
+                    b.ToTable("Car");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Cars", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CarID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RideID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CarID");
+
                     b.HasIndex("RideID");
 
-                    b.ToTable("Car");
+                    b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Conductors", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ConductorID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RideID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ConductorID");
+
+                    b.HasIndex("RideID");
+
+                    b.ToTable("Conductors");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Day", b =>
@@ -284,17 +323,12 @@ namespace TrainStation.Migrations
                     b.Property<int>("PermissionID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RideID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("PermissionID");
-
-                    b.HasIndex("RideID");
 
                     b.ToTable("Employee");
                 });
@@ -330,10 +364,7 @@ namespace TrainStation.Migrations
                     b.Property<TimeSpan>("BreakTimeOnStation")
                         .HasColumnType("time");
 
-                    b.Property<int?>("DayID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DestinationPlaceID")
+                    b.Property<int>("DayID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndingDateTime")
@@ -341,6 +372,9 @@ namespace TrainStation.Migrations
 
                     b.Property<TimeSpan>("FullTimeRide")
                         .HasColumnType("time");
+
+                    b.Property<int?>("PlaceID")
+                        .HasColumnType("int");
 
                     b.Property<int>("RideID")
                         .HasColumnType("int");
@@ -361,7 +395,7 @@ namespace TrainStation.Migrations
 
                     b.HasIndex("DayID");
 
-                    b.HasIndex("DestinationPlaceID");
+                    b.HasIndex("PlaceID");
 
                     b.HasIndex("RideID");
 
@@ -464,9 +498,6 @@ namespace TrainStation.Migrations
                     b.Property<int>("CarID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("JourneyID")
-                        .HasColumnType("int");
-
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
@@ -483,11 +514,31 @@ namespace TrainStation.Migrations
 
                     b.HasIndex("CarID");
 
-                    b.HasIndex("JourneyID");
-
                     b.HasIndex("TypeID");
 
                     b.ToTable("Ticket");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Tickets", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("JourneyID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("JourneyID");
+
+                    b.HasIndex("TicketID");
+
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Type", b =>
@@ -559,59 +610,86 @@ namespace TrainStation.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TrainStation.Models.Car", b =>
+            modelBuilder.Entity("TrainStation.Models.Cars", b =>
                 {
-                    b.HasOne("TrainStation.Models.Ride", null)
-                        .WithMany("Cars")
-                        .HasForeignKey("RideID");
+                    b.HasOne("TrainStation.Models.Car", "Car")
+                        .WithMany("CarsList")
+                        .HasForeignKey("CarID")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("TrainStation.Models.Ride", "Ride")
+                        .WithMany("CarsList")
+                        .HasForeignKey("RideID")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Ride");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Conductors", b =>
+                {
+                    b.HasOne("TrainStation.Models.Employee", "Conductor")
+                        .WithMany("ConductorsList")
+                        .HasForeignKey("ConductorID")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("TrainStation.Models.Ride", "Ride")
+                        .WithMany("ConductorsList")
+                        .HasForeignKey("RideID")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("Conductor");
+
+                    b.Navigation("Ride");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Employee", b =>
                 {
                     b.HasOne("TrainStation.Models.Permission", "Type")
-                        .WithMany()
+                        .WithMany("Employees")
                         .HasForeignKey("PermissionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
-
-                    b.HasOne("TrainStation.Models.Ride", null)
-                        .WithMany("Conductors")
-                        .HasForeignKey("RideID");
 
                     b.Navigation("Type");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Journey", b =>
                 {
-                    b.HasOne("TrainStation.Models.Day", null)
+                    b.HasOne("TrainStation.Models.Day", "Day")
                         .WithMany("Journeys")
-                        .HasForeignKey("DayID");
-
-                    b.HasOne("TrainStation.Models.Place", "DestinationPlace")
-                        .WithMany()
-                        .HasForeignKey("DestinationPlaceID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("DayID")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
+                    b.HasOne("TrainStation.Models.Place", null)
+                        .WithMany("JourneysDestinations")
+                        .HasForeignKey("PlaceID");
+
                     b.HasOne("TrainStation.Models.Ride", "Ride")
-                        .WithMany()
+                        .WithMany("Journeys")
                         .HasForeignKey("RideID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Place", "StartingPlace")
-                        .WithMany()
+                        .WithMany("JourneysStarting")
                         .HasForeignKey("StartingPlaceID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Status", "Status")
-                        .WithMany()
+                        .WithMany("Journeys")
                         .HasForeignKey("StatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
-                    b.Navigation("DestinationPlace");
+                    b.Navigation("Day");
 
                     b.Navigation("Ride");
 
@@ -623,15 +701,15 @@ namespace TrainStation.Migrations
             modelBuilder.Entity("TrainStation.Models.Ride", b =>
                 {
                     b.HasOne("TrainStation.Models.Employee", "Driver")
-                        .WithMany()
+                        .WithMany("Rides")
                         .HasForeignKey("DriverID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Engine", "Engine")
-                        .WithMany()
+                        .WithMany("Rides")
                         .HasForeignKey("EngineID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("Driver");
@@ -642,19 +720,15 @@ namespace TrainStation.Migrations
             modelBuilder.Entity("TrainStation.Models.Ticket", b =>
                 {
                     b.HasOne("TrainStation.Models.Car", "Car")
-                        .WithMany()
+                        .WithMany("Tickets")
                         .HasForeignKey("CarID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
-                    b.HasOne("TrainStation.Models.Journey", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("JourneyID");
-
                     b.HasOne("TrainStation.Models.Type", "Type")
-                        .WithMany()
+                        .WithMany("Tickets")
                         .HasForeignKey("TypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("Car");
@@ -662,21 +736,88 @@ namespace TrainStation.Migrations
                     b.Navigation("Type");
                 });
 
+            modelBuilder.Entity("TrainStation.Models.Tickets", b =>
+                {
+                    b.HasOne("TrainStation.Models.Journey", "Journey")
+                        .WithMany("TicketsList")
+                        .HasForeignKey("JourneyID")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("TrainStation.Models.Ticket", "Ticket")
+                        .WithMany("TicketsList")
+                        .HasForeignKey("TicketID")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("Journey");
+
+                    b.Navigation("Ticket");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Car", b =>
+                {
+                    b.Navigation("CarsList");
+
+                    b.Navigation("Tickets");
+                });
+
             modelBuilder.Entity("TrainStation.Models.Day", b =>
                 {
                     b.Navigation("Journeys");
                 });
 
+            modelBuilder.Entity("TrainStation.Models.Employee", b =>
+                {
+                    b.Navigation("ConductorsList");
+
+                    b.Navigation("Rides");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Engine", b =>
+                {
+                    b.Navigation("Rides");
+                });
+
             modelBuilder.Entity("TrainStation.Models.Journey", b =>
                 {
-                    b.Navigation("Tickets");
+                    b.Navigation("TicketsList");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Permission", b =>
+                {
+                    b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Place", b =>
+                {
+                    b.Navigation("JourneysDestinations");
+
+                    b.Navigation("JourneysStarting");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Ride", b =>
                 {
-                    b.Navigation("Cars");
+                    b.Navigation("CarsList");
 
-                    b.Navigation("Conductors");
+                    b.Navigation("ConductorsList");
+
+                    b.Navigation("Journeys");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Status", b =>
+                {
+                    b.Navigation("Journeys");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Ticket", b =>
+                {
+                    b.Navigation("TicketsList");
+                });
+
+            modelBuilder.Entity("TrainStation.Models.Type", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }
