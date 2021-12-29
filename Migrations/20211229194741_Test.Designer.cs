@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainStation.Data;
 
 namespace TrainStation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211229194741_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -365,9 +367,6 @@ namespace TrainStation.Migrations
                     b.Property<int>("DayID")
                         .HasColumnType("int");
 
-                    b.Property<int>("DestinationPlaceID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndingDateTime")
                         .HasColumnType("datetime2");
 
@@ -392,8 +391,6 @@ namespace TrainStation.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("DayID");
-
-                    b.HasIndex("DestinationPlaceID");
 
                     b.HasIndex("RideID");
 
@@ -665,12 +662,6 @@ namespace TrainStation.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TrainStation.Models.Place", "DestinationPlace")
-                        .WithMany("JourneysDestinations")
-                        .HasForeignKey("DestinationPlaceID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("TrainStation.Models.Ride", "Ride")
                         .WithMany("Journeys")
                         .HasForeignKey("RideID")
@@ -690,8 +681,6 @@ namespace TrainStation.Migrations
                         .IsRequired();
 
                     b.Navigation("Day");
-
-                    b.Navigation("DestinationPlace");
 
                     b.Navigation("Ride");
 
@@ -793,8 +782,6 @@ namespace TrainStation.Migrations
 
             modelBuilder.Entity("TrainStation.Models.Place", b =>
                 {
-                    b.Navigation("JourneysDestinations");
-
                     b.Navigation("JourneysStarting");
                 });
 

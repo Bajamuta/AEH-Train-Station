@@ -16,8 +16,8 @@ namespace TrainStation.Models
         public Ride Ride { get; set; }
         public int StartingPlaceID { get; set; }
         public Place StartingPlace { get; set; }
-        // public int DestinationPlaceID { get; set; }
-        // public Place DestinationPlace { get; set; }
+        public int DestinationPlaceID { get; set; }
+        public Place DestinationPlace { get; set; }
         [DataType(DataType.Date)]
         public DateTime StartingDateTime { get; set; }
         public TimeSpan BreakTimeOnStation { get; set; }

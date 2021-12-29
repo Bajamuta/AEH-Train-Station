@@ -10,8 +10,8 @@ using TrainStation.Data;
 namespace TrainStation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211211020114_NewEntitiesAgain")]
-    partial class NewEntitiesAgain
+    [Migration("20211229195327_Test2")]
+    partial class Test2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -367,14 +367,14 @@ namespace TrainStation.Migrations
                     b.Property<int>("DayID")
                         .HasColumnType("int");
 
+                    b.Property<int>("DestinationPlaceID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndingDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<TimeSpan>("FullTimeRide")
                         .HasColumnType("time");
-
-                    b.Property<int?>("PlaceID")
-                        .HasColumnType("int");
 
                     b.Property<int>("RideID")
                         .HasColumnType("int");
@@ -395,7 +395,7 @@ namespace TrainStation.Migrations
 
                     b.HasIndex("DayID");
 
-                    b.HasIndex("PlaceID");
+                    b.HasIndex("DestinationPlaceID");
 
                     b.HasIndex("RideID");
 
@@ -615,13 +615,13 @@ namespace TrainStation.Migrations
                     b.HasOne("TrainStation.Models.Car", "Car")
                         .WithMany("CarsList")
                         .HasForeignKey("CarID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Ride", "Ride")
                         .WithMany("CarsList")
                         .HasForeignKey("RideID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Car");
@@ -634,13 +634,13 @@ namespace TrainStation.Migrations
                     b.HasOne("TrainStation.Models.Employee", "Conductor")
                         .WithMany("ConductorsList")
                         .HasForeignKey("ConductorID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Ride", "Ride")
                         .WithMany("ConductorsList")
                         .HasForeignKey("RideID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Conductor");
@@ -653,7 +653,7 @@ namespace TrainStation.Migrations
                     b.HasOne("TrainStation.Models.Permission", "Type")
                         .WithMany("Employees")
                         .HasForeignKey("PermissionID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Type");
@@ -664,32 +664,36 @@ namespace TrainStation.Migrations
                     b.HasOne("TrainStation.Models.Day", "Day")
                         .WithMany("Journeys")
                         .HasForeignKey("DayID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TrainStation.Models.Place", null)
+                    b.HasOne("TrainStation.Models.Place", "DestinationPlace")
                         .WithMany("JourneysDestinations")
-                        .HasForeignKey("PlaceID");
+                        .HasForeignKey("DestinationPlaceID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("TrainStation.Models.Ride", "Ride")
                         .WithMany("Journeys")
                         .HasForeignKey("RideID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Place", "StartingPlace")
                         .WithMany("JourneysStarting")
                         .HasForeignKey("StartingPlaceID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Status", "Status")
                         .WithMany("Journeys")
                         .HasForeignKey("StatusID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Day");
+
+                    b.Navigation("DestinationPlace");
 
                     b.Navigation("Ride");
 
@@ -703,13 +707,13 @@ namespace TrainStation.Migrations
                     b.HasOne("TrainStation.Models.Employee", "Driver")
                         .WithMany("Rides")
                         .HasForeignKey("DriverID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Engine", "Engine")
                         .WithMany("Rides")
                         .HasForeignKey("EngineID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Driver");
@@ -722,13 +726,13 @@ namespace TrainStation.Migrations
                     b.HasOne("TrainStation.Models.Car", "Car")
                         .WithMany("Tickets")
                         .HasForeignKey("CarID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Type", "Type")
                         .WithMany("Tickets")
                         .HasForeignKey("TypeID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Car");
@@ -741,13 +745,13 @@ namespace TrainStation.Migrations
                     b.HasOne("TrainStation.Models.Journey", "Journey")
                         .WithMany("TicketsList")
                         .HasForeignKey("JourneyID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Ticket", "Ticket")
                         .WithMany("TicketsList")
                         .HasForeignKey("TicketID")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Journey");

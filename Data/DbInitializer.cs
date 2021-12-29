@@ -8,13 +8,12 @@ namespace TrainStation.Data
     {
         public static void Initialize(ApplicationDbContext context)
         {
-            /*// Look for any employees.
+            // Look for any employees.
             if (context.Employee.Any())
             {
                 return;   // DB has been seeded
-            }*/
+            }
 
-            /*
             var permissions = new Permission[]
             {
                 new Permission {Name = "head", Description = ""},
@@ -40,7 +39,7 @@ namespace TrainStation.Data
             };
             
             context.Employee.AddRange(employees);
-            context.SaveChanges();*/
+            context.SaveChanges();
         }
     }
 }
