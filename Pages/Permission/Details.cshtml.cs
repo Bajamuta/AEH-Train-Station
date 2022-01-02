@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TrainStation.Data;
 using TrainStation.Models;
 
-namespace TrainStation.Pages.Employee
+namespace TrainStation.Pages.Permission
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace TrainStation.Pages.Employee
             _context = context;
         }
 
-        public Models.Employee Employee { get; set; }
+        public Models.Permission Permission { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,9 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FirstOrDefaultAsync(m => m.ID == id);
+            Permission = await _context.Permission.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Employee == null)
+            if (Permission == null)
             {
                 return NotFound();
             }

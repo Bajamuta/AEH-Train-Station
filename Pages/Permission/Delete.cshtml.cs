@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TrainStation.Data;
 using TrainStation.Models;
 
-namespace TrainStation.Pages.Employee
+namespace TrainStation.Pages.Permission
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace TrainStation.Pages.Employee
         }
 
         [BindProperty]
-        public Models.Employee Employee { get; set; }
+        public Models.Permission Permission { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,9 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FirstOrDefaultAsync(m => m.ID == id);
+            Permission = await _context.Permission.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Employee == null)
+            if (Permission == null)
             {
                 return NotFound();
             }
@@ -45,11 +45,11 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FindAsync(id);
+            Permission = await _context.Permission.FindAsync(id);
 
-            if (Employee != null)
+            if (Permission != null)
             {
-                _context.Employee.Remove(Employee);
+                _context.Permission.Remove(Permission);
                 await _context.SaveChangesAsync();
             }
 

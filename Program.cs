@@ -27,7 +27,7 @@ namespace TrainStation
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    var context = services.GetRequiredService<TrainStationContext>();
                     context.Database.EnsureCreated();
                     DbInitializer.Initialize(context);
                 }

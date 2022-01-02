@@ -18,5 +18,6 @@ namespace TrainStation.Models
         
         public IList<Conductors> ConductorsList { get; set; }
         public ICollection<Ride> Rides { get; set; }
+        
     }
 }

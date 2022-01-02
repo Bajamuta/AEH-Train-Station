@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TrainStation.Models;
@@ -18,12 +14,12 @@ namespace TrainStation.Data
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TrainStation");
-            optionsBuilder.UseSqlServer("Server=localhost,1433; Database=TrainStation;User=sa; Password='P@$$w0rd!';");
+            // optionsBuilder.UseSqlServer("Server=localhost,1433; Database=TrainStation;User=sa; Password='P@$$w0rd!';");
+            // optionsBuilder.UseSqlServer(Configuration.GetConnectionString("TrainDatabase"));
         }
 
         public DbSet<Permission> Permission { get; set; }
-        // public DbSet<Status> Status { get; set; }
+        public DbSet<Status> Status { get; set; }
         public DbSet<Type> Type { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Engine> Engine { get; set; }

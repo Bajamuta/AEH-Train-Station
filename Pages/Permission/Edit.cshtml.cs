@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using TrainStation.Data;
 using TrainStation.Models;
 
-namespace TrainStation.Pages.Employee
+namespace TrainStation.Pages.Permission
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace TrainStation.Pages.Employee
         }
 
         [BindProperty]
-        public Models.Employee Employee { get; set; }
+        public Models.Permission Permission { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,9 +30,9 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FirstOrDefaultAsync(m => m.ID == id);
+            Permission = await _context.Permission.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Employee == null)
+            if (Permission == null)
             {
                 return NotFound();
             }
@@ -48,7 +48,7 @@ namespace TrainStation.Pages.Employee
                 return Page();
             }
 
-            _context.Attach(Employee).State = EntityState.Modified;
+            _context.Attach(Permission).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace TrainStation.Pages.Employee
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeExists(Employee.ID))
+                if (!PermissionExists(Permission.ID))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace TrainStation.Pages.Employee
             return RedirectToPage("./Index");
         }
 
-        private bool EmployeeExists(int id)
+        private bool PermissionExists(int id)
         {
-            return _context.Employee.Any(e => e.ID == id);
+            return _context.Permission.Any(e => e.ID == id);
         }
     }
 }

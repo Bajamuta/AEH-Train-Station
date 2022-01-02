@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TrainStation.Data;
 using TrainStation.Models;
 
-namespace TrainStation.Pages.Employee
+namespace TrainStation.Pages.Permission
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,11 @@ namespace TrainStation.Pages.Employee
             _context = context;
         }
 
-        public IList<Models.Employee> Employee { get;set; }
+        public IList<Models.Permission> Permission { get;set; }
 
         public async Task OnGetAsync()
         {
-            Employee = await _context.Employee.ToListAsync();
+            Permission = await _context.Permission.ToListAsync();
         }
     }
 }
