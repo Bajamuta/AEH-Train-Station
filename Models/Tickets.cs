@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TrainStation.Models
 {
@@ -7,8 +8,8 @@ namespace TrainStation.Models
         [Key]
         public int ID { get; set; }
         public int TicketID { get; set; }
-        public Ticket Ticket { get; set; }
+        public virtual Ticket Ticket { get; set; }
         public int JourneyID { get; set; }
-        public Journey Journey { get; set; }
+        public virtual Journey Journey { get; set; }
     }
 }

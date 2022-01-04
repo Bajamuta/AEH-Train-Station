@@ -35,7 +35,7 @@ namespace TrainStation.Pages.Permission
                 return Page();
             }
 
-            _context.Permission.Add(Permission);
+            _context.Permissions.Add(Permission);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -23,7 +23,7 @@ namespace TrainStation.Pages.Permission
 
         public async Task OnGetAsync()
         {
-            Permission = await _context.Permission.ToListAsync();
+            Permission = await _context.Permissions.ToListAsync();
         }
     }
 }

@@ -16,10 +16,10 @@ namespace TrainStation.Data
                 new Permission {Name = "driver", Description = ""},
                 new Permission {Name = "cashier", Description = ""}
             };
-            var types = new Models.Type[]
+            var types = new Models.TypeOfTicket[]
             {
-                new Models.Type {Name = "sitting", Description = ""},
-                new Models.Type {Name = "standing", Description = ""}
+                new Models.TypeOfTicket {Name = "sitting", Description = ""},
+                new Models.TypeOfTicket {Name = "standing", Description = ""}
             };
             var headID = permissions.FirstOrDefault(v => v.Name == "head").ID;
 
@@ -29,21 +29,21 @@ namespace TrainStation.Data
             };
             
             // Look for any employees.
-            if (context.Employee.Any())
+            if (context.Employees.Any())
             {
                 return;   // DB has been seeded
             }
             
-            if (context.Permission.Any())
+            if (context.Permissions.Any())
             {
                 return;
             }
 
-            context.Permission.AddRange(permissions);
+            context.Permissions.AddRange(permissions);
             context.SaveChanges();
-            context.Type.AddRange(types);
+            context.TypesOfTickets.AddRange(types);
             context.SaveChanges();
-            context.Employee.AddRange(employees);
+            context.Employees.AddRange(employees);
             context.SaveChanges();
         }
     }

@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+#nullable disable
+
 namespace TrainStation.Models
 {
-    public class Employee
+    public partial class Employee
     {
+        public Employee()
+        {
+            Conductors = new HashSet<Conductor>();
+            Rides = new HashSet<Ride>();
+        }
+
         [Key]
         public int ID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-
-        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
         public int PermissionID { get; set; }
-        public Permission Type { get; set; }
-        
-        public IList<Conductors> ConductorsList { get; set; }
-        public ICollection<Ride> Rides { get; set; }
-        
+
+        public virtual Permission Permission { get; set; }
+        public virtual ICollection<Conductor> Conductors { get; set; }
+        public virtual ICollection<Ride> Rides { get; set; }
     }
 }

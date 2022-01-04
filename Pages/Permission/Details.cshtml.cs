@@ -28,7 +28,7 @@ namespace TrainStation.Pages.Permission
                 return NotFound();
             }
 
-            Permission = await _context.Permission.FirstOrDefaultAsync(m => m.ID == id);
+            Permission = await _context.Permissions.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Permission == null)
             {

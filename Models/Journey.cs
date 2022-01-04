@@ -2,31 +2,35 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+#nullable disable
+
 namespace TrainStation.Models
 {
-    public class Journey
+    public partial class Journey
     {
+        public Journey()
+        {
+            Tickets = new HashSet<Tickets>();
+        }
+
         [Key]
         public int ID { get; set; }
-        public int DayID { get; set; }
-        public Day Day { get; set; }
-        public int StatusID { get; set; }
-        public Status Status { get; set; }
-        public int RideID { get; set; }
-        public Ride Ride { get; set; }
-        public int StartingPlaceID { get; set; }
-        public Place StartingPlace { get; set; }
-        public int DestinationPlaceID { get; set; }
-        public Place DestinationPlace { get; set; }
-        [DataType(DataType.Date)]
+        public int DayId { get; set; }
+        public int StatusId { get; set; }
+        public int RideId { get; set; }
+        public int StartingPlaceId { get; set; }
         public DateTime StartingDateTime { get; set; }
         public TimeSpan BreakTimeOnStation { get; set; }
-        //TODO calculated automatically
         public TimeSpan FullTimeRide { get; set; }
-        [DataType(DataType.Date)]
         public DateTime EndingDateTime { get; set; }
-        [DataType(DataType.Currency)]
         public decimal TicketBasePrice { get; set; }
-        public IList<Tickets> TicketsList { get; set; }
+        public int DestinationPlaceId { get; set; }
+
+        public virtual Day Day { get; set; }
+        public virtual Place DestinationPlace { get; set; }
+        public virtual Ride Ride { get; set; }
+        public virtual Place StartingPlace { get; set; }
+        public virtual Status Status { get; set; }
+        public virtual ICollection<Tickets> Tickets { get; set; }
     }
 }

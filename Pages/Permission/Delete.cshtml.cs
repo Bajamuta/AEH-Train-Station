@@ -29,7 +29,7 @@ namespace TrainStation.Pages.Permission
                 return NotFound();
             }
 
-            Permission = await _context.Permission.FirstOrDefaultAsync(m => m.ID == id);
+            Permission = await _context.Permissions.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Permission == null)
             {
@@ -45,11 +45,11 @@ namespace TrainStation.Pages.Permission
                 return NotFound();
             }
 
-            Permission = await _context.Permission.FindAsync(id);
+            Permission = await _context.Permissions.FindAsync(id);
 
             if (Permission != null)
             {
-                _context.Permission.Remove(Permission);
+                _context.Permissions.Remove(Permission);
                 await _context.SaveChangesAsync();
             }
 

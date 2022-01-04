@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+#nullable disable
+
 namespace TrainStation.Models
 {
-    public class Ticket
+    public partial class Ticket
     {
+        public Ticket()
+        {
+            Tickets = new HashSet<Tickets>();
+        }
+
         [Key]
         public int ID { get; set; }
-        public int TypeID { get; set; }
-        public Type Type { get; set; }
+        public int TypeOfTicketID { get; set; }
         public int Number { get; set; }
         public int CarID { get; set; }
-        public Car Car { get; set; }
-        [DataType(DataType.Date)]
         public DateTime SoldDateTime { get; set; }
-        [DataType(DataType.Currency)]
         public decimal SoldPrice { get; set; }
-        
-        public IList<Tickets> TicketsList { get; set; }
+
+        public virtual Car Car { get; set; }
+        public virtual TypeOfTicket TypeOfTicket { get; set; }
+        public virtual ICollection<Tickets> Tickets { get; set; }
     }
 }

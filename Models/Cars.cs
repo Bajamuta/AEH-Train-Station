@@ -7,8 +7,8 @@ namespace TrainStation.Models
         [Key]
         public int ID { get; set; }
         public int RideID { get; set; }
-        public Ride Ride { get; set; }
+        public virtual Ride Ride { get; set; }
         public int CarID { get; set; }
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
     }
 }

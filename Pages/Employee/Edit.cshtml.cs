@@ -30,7 +30,7 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FirstOrDefaultAsync(m => m.ID == id);
+            Employee = await _context.Employees.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Employee == null)
             {
@@ -71,7 +71,7 @@ namespace TrainStation.Pages.Employee
 
         private bool EmployeeExists(int id)
         {
-            return _context.Employee.Any(e => e.ID == id);
+            return _context.Employees.Any(e => e.ID == id);
         }
     }
 }

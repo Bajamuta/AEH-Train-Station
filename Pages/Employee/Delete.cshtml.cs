@@ -29,7 +29,7 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FirstOrDefaultAsync(m => m.ID == id);
+            Employee = await _context.Employees.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Employee == null)
             {
@@ -45,11 +45,11 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FindAsync(id);
+            Employee = await _context.Employees.FindAsync(id);
 
             if (Employee != null)
             {
-                _context.Employee.Remove(Employee);
+                _context.Employees.Remove(Employee);
                 await _context.SaveChangesAsync();
             }
 

@@ -30,7 +30,7 @@
                 <span asp-validation-for="Employee.BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Employee.Type" class="control-label"></label>
+                <label asp-for="Employee.Permission" class="control-label"></label>
                 @*<input asp-for="Employee.Type" class="form-control" />*@
                 <select name="typeId" asp-items="Model.Options" asp-for="PermissionID" class="form-control"></select>
                 <span asp-validation-for="PermissionID" class="text-danger"></span>

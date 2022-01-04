@@ -21,7 +21,7 @@ namespace TrainStation.Pages.Employee
 
         public IActionResult OnGet()
         {
-            Options = _context.Permission.Select(a => 
+            Options = _context.Permissions.Select(a => 
                 new SelectListItem 
                 {
                     Value = a.ID.ToString(),
@@ -43,7 +43,7 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }*/
             
-            Options = _context.Permission.Select(a => 
+            Options = _context.Permissions.Select(a => 
                 new SelectListItem 
                 {
                     Value = a.ID.ToString(),
@@ -56,8 +56,8 @@ namespace TrainStation.Pages.Employee
         public IActionResult OnSet()
         {
             Employee.PermissionID = Int32.Parse(PermissionID);
-            var perm = _context.Permission.FirstOrDefault(v => v.ID == Employee.PermissionID);
-            Employee.Type = perm;
+            var perm = _context.Permissions.FirstOrDefault(v => v.ID == Employee.PermissionID);
+            Employee.Permission = perm;
             return Page();
         }
         
@@ -78,7 +78,7 @@ namespace TrainStation.Pages.Employee
                 return Page();
             }
 
-            _context.Employee.Add(Employee);
+            _context.Employees.Add(Employee);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -30,7 +30,7 @@ namespace TrainStation.Pages.Permission
                 return NotFound();
             }
 
-            Permission = await _context.Permission.FirstOrDefaultAsync(m => m.ID == id);
+            Permission = await _context.Permissions.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Permission == null)
             {
@@ -71,7 +71,7 @@ namespace TrainStation.Pages.Permission
 
         private bool PermissionExists(int id)
         {
-            return _context.Permission.Any(e => e.ID == id);
+            return _context.Permissions.Any(e => e.ID == id);
         }
     }
 }
