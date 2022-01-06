@@ -19,8 +19,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Pages\Car" />
       <Folder Include="Pages\Employee" />
+      <Folder Include="Pages\Engine" />
+      <Folder Include="Pages\Journey" />
       <Folder Include="Pages\Permission" />
+      <Folder Include="Pages\Place" />
+      <Folder Include="Pages\Ride" />
     </ItemGroup>
 
 </Project>

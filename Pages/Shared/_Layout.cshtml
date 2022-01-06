@@ -24,12 +24,6 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Permission/Index">Permission</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Employee/Index">Employee</a>
-                    </li>
                 </ul>
                 <partial name="_LoginPartial"/>
             </div>
@@ -37,8 +31,28 @@
     </nav>
 </header>
 <div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
+    <main role="main" class="py-3">
+        <div class="row">
+            <div class="col-2">
+                <!-- Navigation after login -->
+                <nav class="navbar bg-info rounded" style="--bs-bg-opacity: .5;" id="loginNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-page="/Permission/Index">Permissions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-page="/Employee/Index">Employees</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-page="/Car/Index">Cars</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col">
+                @RenderBody() 
+            </div>
+        </div>
     </main>
 </div>
 

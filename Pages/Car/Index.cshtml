@@ -1,12 +1,12 @@
 @page
-@model TrainStation.Pages.Employee.IndexModel
+@model TrainStation.Pages.Car.IndexModel
 
 @{
-    ViewData["Title"] = "Employees' list";
+    ViewData["Title"] = "Cars' list";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Employees' list</h1>
+<h1>Cars' list</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -15,34 +15,40 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Employees[0].Name)
+                @Html.DisplayNameFor(model => model.Car[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employees[0].Surname)
+                @Html.DisplayNameFor(model => model.Car[0].ProductionDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employees[0].BirthDate)
+                @Html.DisplayNameFor(model => model.Car[0].Sitting)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employees[0].Permission)
+                @Html.DisplayNameFor(model => model.Car[0].Standing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car[0].Available)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Employees) {
+@foreach (var item in Model.Car) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Surname)
+                @Html.DisplayFor(modelItem => item.ProductionDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
+                @Html.DisplayFor(modelItem => item.Sitting)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Permission)
+                @Html.DisplayFor(modelItem => item.Standing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Available)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
