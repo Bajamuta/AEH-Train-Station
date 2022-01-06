@@ -1,0 +1,42 @@
+@page
+@model TrainStation.Pages.Ride.EditModel
+
+@{
+    ViewData["Title"] = "Ride edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Ride</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Ride.ID" />
+            <div class="form-group">
+                <label asp-for="Ride.Name" class="control-label"></label>
+                <input asp-for="Ride.Name" class="form-control" />
+                <span asp-validation-for="Ride.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ride.EngineId" class="control-label"></label>
+                <select asp-for="Ride.EngineId" class="form-control" asp-items="ViewBag.EngineId"></select>
+                <span asp-validation-for="Ride.EngineId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ride.DriverId" class="control-label"></label>
+                <select asp-for="Ride.DriverId" class="form-control" asp-items="ViewBag.DriverId"></select>
+                <span asp-validation-for="Ride.DriverId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

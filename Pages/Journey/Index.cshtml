@@ -1,0 +1,91 @@
+@page
+@model TrainStation.Pages.Journey.IndexModel
+
+@{
+    ViewData["Title"] = "Journeys' list";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Journeys' list</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].StartingDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].BreakTimeOnStation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].FullTimeRide)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].EndingDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].TicketBasePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].Day)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].DestinationPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].Ride)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].StartingPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Journey) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BreakTimeOnStation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullTimeRide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndingDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketBasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DestinationPlace.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ride.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingPlace.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.ID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

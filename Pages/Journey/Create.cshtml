@@ -1,0 +1,72 @@
+@page
+@model TrainStation.Pages.Journey.CreateModel
+
+@{
+    ViewData["Title"] = "Journey create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Journey</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Journey.DayId" class="control-label"></label>
+                <select asp-for="Journey.DayId" class ="form-control" asp-items="ViewBag.DayId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.StatusId" class="control-label"></label>
+                <select asp-for="Journey.StatusId" class ="form-control" asp-items="ViewBag.StatusId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.RideId" class="control-label"></label>
+                <select asp-for="Journey.RideId" class ="form-control" asp-items="ViewBag.RideId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.StartingPlaceId" class="control-label"></label>
+                <select asp-for="Journey.StartingPlaceId" class ="form-control" asp-items="ViewBag.StartingPlaceId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.StartingDateTime" class="control-label"></label>
+                <input asp-for="Journey.StartingDateTime" class="form-control" />
+                <span asp-validation-for="Journey.StartingDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.BreakTimeOnStation" class="control-label"></label>
+                <input asp-for="Journey.BreakTimeOnStation" class="form-control" />
+                <span asp-validation-for="Journey.BreakTimeOnStation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.FullTimeRide" class="control-label"></label>
+                <input asp-for="Journey.FullTimeRide" class="form-control" />
+                <span asp-validation-for="Journey.FullTimeRide" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.EndingDateTime" class="control-label"></label>
+                <input asp-for="Journey.EndingDateTime" class="form-control" />
+                <span asp-validation-for="Journey.EndingDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.TicketBasePrice" class="control-label"></label>
+                <input asp-for="Journey.TicketBasePrice" class="form-control" />
+                <span asp-validation-for="Journey.TicketBasePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.DestinationPlaceId" class="control-label"></label>
+                <select asp-for="Journey.DestinationPlaceId" class ="form-control" asp-items="ViewBag.DestinationPlaceId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+

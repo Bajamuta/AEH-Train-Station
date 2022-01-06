@@ -1,0 +1,39 @@
+@page
+@model TrainStation.Pages.Ride.CreateModel
+
+@{
+    ViewData["Title"] = "Ride create";
+}
+
+<h1>Create</h1>
+
+<h4>Ride</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ride.Name" class="control-label"></label>
+                <input asp-for="Ride.Name" class="form-control" />
+                <span asp-validation-for="Ride.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ride.EngineId" class="control-label"></label>
+                <select asp-for="Ride.EngineId" class ="form-control" asp-items="ViewBag.EngineId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ride.DriverId" class="control-label"></label>
+                <select asp-for="Ride.DriverId" class ="form-control" asp-items="ViewBag.DriverId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+

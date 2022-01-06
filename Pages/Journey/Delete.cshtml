@@ -1,0 +1,83 @@
+@page
+@model TrainStation.Pages.Journey.DeleteModel
+
+@{
+    ViewData["Title"] = "Journey delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Journey</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.StartingDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.StartingDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.BreakTimeOnStation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.BreakTimeOnStation)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.FullTimeRide)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.FullTimeRide)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.EndingDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.EndingDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.TicketBasePrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.TicketBasePrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.Day)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.Day.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.DestinationPlace)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.DestinationPlace.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.Ride)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.Ride.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.StartingPlace)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.StartingPlace.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.Status.ID)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Journey.ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
