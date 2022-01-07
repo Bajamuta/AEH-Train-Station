@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainStation.Data;
 
-namespace TrainStation.Migrations.TrainStation
+namespace TrainStation.Migrations
 {
     [DbContext(typeof(TrainStationContext))]
-    [Migration("20220102140037_NewDbContext")]
-    partial class NewDbContext
+    [Migration("20220107191224_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace TrainStation.Migrations.TrainStation
             modelBuilder
                 .HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.11")
+                .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("TrainStation.Data.AspNetRole", b =>
@@ -254,21 +254,23 @@ namespace TrainStation.Migrations.TrainStation
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CarID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CarID");
 
                     b.Property<int>("RideID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("RideID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CarID");
+                    b.HasIndex(new[] { "CarID" }, "IX_Cars_CarID");
 
-                    b.HasIndex("RideID");
+                    b.HasIndex(new[] { "RideID" }, "IX_Cars_RideID");
 
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("TrainStation.Models.Conductors", b =>
+            modelBuilder.Entity("TrainStation.Models.Conductor", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -277,16 +279,18 @@ namespace TrainStation.Migrations.TrainStation
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ConductorID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ConductorID");
 
                     b.Property<int>("RideID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("RideID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ConductorID");
+                    b.HasIndex(new[] { "ConductorID" }, "IX_Conductors_ConductorID");
 
-                    b.HasIndex("RideID");
+                    b.HasIndex(new[] { "RideID" }, "IX_Conductors_RideID");
 
                     b.ToTable("Conductors");
                 });
@@ -322,14 +326,15 @@ namespace TrainStation.Migrations.TrainStation
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PermissionID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("PermissionID");
 
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PermissionID");
+                    b.HasIndex(new[] { "PermissionID" }, "IX_Employee_PermissionID");
 
                     b.ToTable("Employee");
                 });
@@ -367,11 +372,13 @@ namespace TrainStation.Migrations.TrainStation
                     b.Property<TimeSpan>("BreakTimeOnStation")
                         .HasColumnType("time");
 
-                    b.Property<int>("DayID")
-                        .HasColumnType("int");
+                    b.Property<int>("DayId")
+                        .HasColumnType("int")
+                        .HasColumnName("DayID");
 
-                    b.Property<int>("DestinationPlaceID")
-                        .HasColumnType("int");
+                    b.Property<int>("DestinationPlaceId")
+                        .HasColumnType("int")
+                        .HasColumnName("DestinationPlaceID");
 
                     b.Property<DateTime>("EndingDateTime")
                         .HasColumnType("datetime2");
@@ -379,32 +386,35 @@ namespace TrainStation.Migrations.TrainStation
                     b.Property<TimeSpan>("FullTimeRide")
                         .HasColumnType("time");
 
-                    b.Property<int>("RideID")
-                        .HasColumnType("int");
+                    b.Property<int>("RideId")
+                        .HasColumnType("int")
+                        .HasColumnName("RideID");
 
                     b.Property<DateTime>("StartingDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StartingPlaceID")
-                        .HasColumnType("int");
+                    b.Property<int>("StartingPlaceId")
+                        .HasColumnType("int")
+                        .HasColumnName("StartingPlaceID");
 
-                    b.Property<int>("StatusID")
-                        .HasColumnType("int");
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int")
+                        .HasColumnName("StatusID");
 
                     b.Property<decimal>("TicketBasePrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("DayID");
+                    b.HasIndex(new[] { "DayId" }, "IX_Journey_DayID");
 
-                    b.HasIndex("DestinationPlaceID");
+                    b.HasIndex(new[] { "DestinationPlaceId" }, "IX_Journey_DestinationPlaceID");
 
-                    b.HasIndex("RideID");
+                    b.HasIndex(new[] { "RideId" }, "IX_Journey_RideID");
 
-                    b.HasIndex("StartingPlaceID");
+                    b.HasIndex(new[] { "StartingPlaceId" }, "IX_Journey_StartingPlaceID");
 
-                    b.HasIndex("StatusID");
+                    b.HasIndex(new[] { "StatusId" }, "IX_Journey_StatusID");
 
                     b.ToTable("Journey");
                 });
@@ -458,20 +468,22 @@ namespace TrainStation.Migrations.TrainStation
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DriverID")
-                        .HasColumnType("int");
+                    b.Property<int>("DriverId")
+                        .HasColumnType("int")
+                        .HasColumnName("DriverID");
 
-                    b.Property<int>("EngineID")
-                        .HasColumnType("int");
+                    b.Property<int>("EngineId")
+                        .HasColumnType("int")
+                        .HasColumnName("EngineID");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("DriverID");
+                    b.HasIndex(new[] { "DriverId" }, "IX_Ride_DriverID");
 
-                    b.HasIndex("EngineID");
+                    b.HasIndex(new[] { "EngineId" }, "IX_Ride_EngineID");
 
                     b.ToTable("Ride");
                 });
@@ -504,7 +516,8 @@ namespace TrainStation.Migrations.TrainStation
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CarID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CarID");
 
                     b.Property<int>("Number")
                         .HasColumnType("int");
@@ -515,14 +528,15 @@ namespace TrainStation.Migrations.TrainStation
                     b.Property<decimal>("SoldPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("TypeID")
-                        .HasColumnType("int");
+                    b.Property<int>("TypeOfTicketID")
+                        .HasColumnType("int")
+                        .HasColumnName("TypeID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CarID");
+                    b.HasIndex(new[] { "CarID" }, "IX_Ticket_CarID");
 
-                    b.HasIndex("TypeID");
+                    b.HasIndex(new[] { "TypeOfTicketID" }, "IX_Ticket_TypeID");
 
                     b.ToTable("Ticket");
                 });
@@ -536,21 +550,23 @@ namespace TrainStation.Migrations.TrainStation
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("JourneyID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("JourneyID");
 
                     b.Property<int>("TicketID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("TicketID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("JourneyID");
+                    b.HasIndex(new[] { "JourneyID" }, "IX_Tickets_JourneyID");
 
-                    b.HasIndex("TicketID");
+                    b.HasIndex(new[] { "TicketID" }, "IX_Tickets_TicketID");
 
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("TrainStation.Models.Type", b =>
+            modelBuilder.Entity("TrainStation.Models.TypeOfTicket", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -566,7 +582,7 @@ namespace TrainStation.Migrations.TrainStation
 
                     b.HasKey("ID");
 
-                    b.ToTable("Type");
+                    b.ToTable("TypeOfTicket");
                 });
 
             modelBuilder.Entity("TrainStation.Data.AspNetRoleClaim", b =>
@@ -635,15 +651,13 @@ namespace TrainStation.Migrations.TrainStation
             modelBuilder.Entity("TrainStation.Models.Cars", b =>
                 {
                     b.HasOne("TrainStation.Models.Car", "Car")
-                        .WithMany("CarsList")
+                        .WithMany("Cars")
                         .HasForeignKey("CarID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Ride", "Ride")
-                        .WithMany("CarsList")
+                        .WithMany("Cars")
                         .HasForeignKey("RideID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Car");
@@ -651,66 +665,58 @@ namespace TrainStation.Migrations.TrainStation
                     b.Navigation("Ride");
                 });
 
-            modelBuilder.Entity("TrainStation.Models.Conductors", b =>
+            modelBuilder.Entity("TrainStation.Models.Conductor", b =>
                 {
-                    b.HasOne("TrainStation.Models.Employee", "Conductor")
-                        .WithMany("ConductorsList")
+                    b.HasOne("TrainStation.Models.Employee", "ConductorEmployee")
+                        .WithMany("Conductors")
                         .HasForeignKey("ConductorID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Ride", "Ride")
-                        .WithMany("ConductorsList")
+                        .WithMany("Conductors")
                         .HasForeignKey("RideID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Conductor");
+                    b.Navigation("ConductorEmployee");
 
                     b.Navigation("Ride");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Employee", b =>
                 {
-                    b.HasOne("TrainStation.Models.Permission", "Type")
+                    b.HasOne("TrainStation.Models.Permission", "Permission")
                         .WithMany("Employees")
                         .HasForeignKey("PermissionID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Type");
+                    b.Navigation("Permission");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Journey", b =>
                 {
                     b.HasOne("TrainStation.Models.Day", "Day")
                         .WithMany("Journeys")
-                        .HasForeignKey("DayID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("DayId")
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Place", "DestinationPlace")
-                        .WithMany("JourneysDestinations")
-                        .HasForeignKey("DestinationPlaceID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .WithMany("JourneyDestinationPlaces")
+                        .HasForeignKey("DestinationPlaceId")
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Ride", "Ride")
                         .WithMany("Journeys")
-                        .HasForeignKey("RideID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("RideId")
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Place", "StartingPlace")
-                        .WithMany("JourneysStarting")
-                        .HasForeignKey("StartingPlaceID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .WithMany("JourneyStartingPlaces")
+                        .HasForeignKey("StartingPlaceId")
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Status", "Status")
                         .WithMany("Journeys")
-                        .HasForeignKey("StatusID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("StatusId")
                         .IsRequired();
 
                     b.Navigation("Day");
@@ -728,14 +734,12 @@ namespace TrainStation.Migrations.TrainStation
                 {
                     b.HasOne("TrainStation.Models.Employee", "Driver")
                         .WithMany("Rides")
-                        .HasForeignKey("DriverID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("DriverId")
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Engine", "Engine")
                         .WithMany("Rides")
-                        .HasForeignKey("EngineID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("EngineId")
                         .IsRequired();
 
                     b.Navigation("Driver");
@@ -748,32 +752,28 @@ namespace TrainStation.Migrations.TrainStation
                     b.HasOne("TrainStation.Models.Car", "Car")
                         .WithMany("Tickets")
                         .HasForeignKey("CarID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TrainStation.Models.Type", "Type")
+                    b.HasOne("TrainStation.Models.TypeOfTicket", "TypeOfTicket")
                         .WithMany("Tickets")
-                        .HasForeignKey("TypeID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("TypeOfTicketID")
                         .IsRequired();
 
                     b.Navigation("Car");
 
-                    b.Navigation("Type");
+                    b.Navigation("TypeOfTicket");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Tickets", b =>
                 {
                     b.HasOne("TrainStation.Models.Journey", "Journey")
-                        .WithMany("TicketsList")
+                        .WithMany("Tickets")
                         .HasForeignKey("JourneyID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TrainStation.Models.Ticket", "Ticket")
-                        .WithMany("TicketsList")
+                        .WithMany("Tickets")
                         .HasForeignKey("TicketID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Journey");
@@ -801,7 +801,7 @@ namespace TrainStation.Migrations.TrainStation
 
             modelBuilder.Entity("TrainStation.Models.Car", b =>
                 {
-                    b.Navigation("CarsList");
+                    b.Navigation("Cars");
 
                     b.Navigation("Tickets");
                 });
@@ -813,7 +813,7 @@ namespace TrainStation.Migrations.TrainStation
 
             modelBuilder.Entity("TrainStation.Models.Employee", b =>
                 {
-                    b.Navigation("ConductorsList");
+                    b.Navigation("Conductors");
 
                     b.Navigation("Rides");
                 });
@@ -825,7 +825,7 @@ namespace TrainStation.Migrations.TrainStation
 
             modelBuilder.Entity("TrainStation.Models.Journey", b =>
                 {
-                    b.Navigation("TicketsList");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Permission", b =>
@@ -835,16 +835,16 @@ namespace TrainStation.Migrations.TrainStation
 
             modelBuilder.Entity("TrainStation.Models.Place", b =>
                 {
-                    b.Navigation("JourneysDestinations");
+                    b.Navigation("JourneyDestinationPlaces");
 
-                    b.Navigation("JourneysStarting");
+                    b.Navigation("JourneyStartingPlaces");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Ride", b =>
                 {
-                    b.Navigation("CarsList");
+                    b.Navigation("Cars");
 
-                    b.Navigation("ConductorsList");
+                    b.Navigation("Conductors");
 
                     b.Navigation("Journeys");
                 });
@@ -856,10 +856,10 @@ namespace TrainStation.Migrations.TrainStation
 
             modelBuilder.Entity("TrainStation.Models.Ticket", b =>
                 {
-                    b.Navigation("TicketsList");
+                    b.Navigation("Tickets");
                 });
 
-            modelBuilder.Entity("TrainStation.Models.Type", b =>
+            modelBuilder.Entity("TrainStation.Models.TypeOfTicket", b =>
                 {
                     b.Navigation("Tickets");
                 });

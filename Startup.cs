@@ -12,6 +12,7 @@ using TrainStation.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace TrainStation
 {
@@ -27,9 +28,8 @@ namespace TrainStation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TrainStationContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("TrainDatabase")));
+            Console.WriteLine("CONFIGURE SERVICES");
+            services.AddDbContext<TrainStationContext>();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<TrainStationContext>();
@@ -60,12 +60,23 @@ namespace TrainStation
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapRazorPages(); });
-
+            Console.WriteLine("STARTUP");
             var serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
             using (var serviceScope = serviceScopeFactory.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetService<TrainStationContext>();
-                dbContext.Database.EnsureCreated();
+                var services = serviceScope.ServiceProvider;
+                try
+                {
+                    var dbContext = services.GetService<TrainStationContext>();
+                    Console.WriteLine("MIGRATE");
+                    dbContext.Database.Migrate();
+                    DbInitializer.Initialize(dbContext);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
             }
         }
     }

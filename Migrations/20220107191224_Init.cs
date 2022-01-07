@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TrainStation.Migrations.TrainStation
+namespace TrainStation.Migrations
 {
-    public partial class NewDbContext : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -135,7 +135,7 @@ namespace TrainStation.Migrations.TrainStation
                 });
 
             migrationBuilder.CreateTable(
-                name: "Type",
+                name: "TypeOfTicket",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -145,7 +145,7 @@ namespace TrainStation.Migrations.TrainStation
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Type", x => x.ID);
+                    table.PrimaryKey("PK_TypeOfTicket", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -272,7 +272,8 @@ namespace TrainStation.Migrations.TrainStation
                         name: "FK_Employee_Permission_PermissionID",
                         column: x => x.PermissionID,
                         principalTable: "Permission",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -294,12 +295,14 @@ namespace TrainStation.Migrations.TrainStation
                         name: "FK_Ticket_Car_CarID",
                         column: x => x.CarID,
                         principalTable: "Car",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ticket_Type_TypeID",
+                        name: "FK_Ticket_TypeOfTicket_TypeID",
                         column: x => x.TypeID,
-                        principalTable: "Type",
-                        principalColumn: "ID");
+                        principalTable: "TypeOfTicket",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -319,12 +322,14 @@ namespace TrainStation.Migrations.TrainStation
                         name: "FK_Ride_Employee_DriverID",
                         column: x => x.DriverID,
                         principalTable: "Employee",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ride_Engine_EngineID",
                         column: x => x.EngineID,
                         principalTable: "Engine",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -343,12 +348,14 @@ namespace TrainStation.Migrations.TrainStation
                         name: "FK_Cars_Car_CarID",
                         column: x => x.CarID,
                         principalTable: "Car",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Cars_Ride_RideID",
                         column: x => x.RideID,
                         principalTable: "Ride",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -367,12 +374,14 @@ namespace TrainStation.Migrations.TrainStation
                         name: "FK_Conductors_Employee_ConductorID",
                         column: x => x.ConductorID,
                         principalTable: "Employee",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Conductors_Ride_RideID",
                         column: x => x.RideID,
                         principalTable: "Ride",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -385,12 +394,12 @@ namespace TrainStation.Migrations.TrainStation
                     StatusID = table.Column<int>(type: "int", nullable: false),
                     RideID = table.Column<int>(type: "int", nullable: false),
                     StartingPlaceID = table.Column<int>(type: "int", nullable: false),
-                    DestinationPlaceID = table.Column<int>(type: "int", nullable: false),
                     StartingDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BreakTimeOnStation = table.Column<TimeSpan>(type: "time", nullable: false),
                     FullTimeRide = table.Column<TimeSpan>(type: "time", nullable: false),
                     EndingDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TicketBasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    TicketBasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DestinationPlaceID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -399,27 +408,32 @@ namespace TrainStation.Migrations.TrainStation
                         name: "FK_Journey_Day_DayID",
                         column: x => x.DayID,
                         principalTable: "Day",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Journey_Place_DestinationPlaceID",
                         column: x => x.DestinationPlaceID,
                         principalTable: "Place",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Journey_Place_StartingPlaceID",
                         column: x => x.StartingPlaceID,
                         principalTable: "Place",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Journey_Ride_RideID",
                         column: x => x.RideID,
                         principalTable: "Ride",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Journey_Status_StatusID",
                         column: x => x.StatusID,
                         principalTable: "Status",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -438,12 +452,14 @@ namespace TrainStation.Migrations.TrainStation
                         name: "FK_Tickets_Journey_JourneyID",
                         column: x => x.JourneyID,
                         principalTable: "Journey",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tickets_Ticket_TicketID",
                         column: x => x.TicketID,
                         principalTable: "Ticket",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -620,7 +636,7 @@ namespace TrainStation.Migrations.TrainStation
                 name: "Car");
 
             migrationBuilder.DropTable(
-                name: "Type");
+                name: "TypeOfTicket");
 
             migrationBuilder.DropTable(
                 name: "Employee");
