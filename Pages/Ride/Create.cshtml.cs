@@ -21,8 +21,9 @@ namespace TrainStation.Pages.Ride
 
         public IActionResult OnGet()
         {
-        ViewData["DriverId"] = new SelectList(_context.Employees, "ID", "ID");
-        ViewData["EngineId"] = new SelectList(_context.Engines, "ID", "ID");
+            var drivers = _context.Employees.Where(e => e.Permission.Name == "driver");
+        ViewData["DriverId"] = new SelectList(drivers, "ID", "Name");
+        ViewData["EngineId"] = new SelectList(_context.Engines, "ID", "Name");
             return Page();
         }
 

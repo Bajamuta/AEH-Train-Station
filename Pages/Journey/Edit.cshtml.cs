@@ -31,7 +31,6 @@ namespace TrainStation.Pages.Journey
             }
 
             Journey = await _context.Journeys
-                .Include(j => j.Day)
                 .Include(j => j.DestinationPlace)
                 .Include(j => j.Ride)
                 .Include(j => j.StartingPlace)
@@ -41,11 +40,10 @@ namespace TrainStation.Pages.Journey
             {
                 return NotFound();
             }
-           ViewData["DayId"] = new SelectList(_context.Days, "ID", "ID");
-           ViewData["DestinationPlaceId"] = new SelectList(_context.Places, "ID", "ID");
-           ViewData["RideId"] = new SelectList(_context.Rides, "ID", "ID");
-           ViewData["StartingPlaceId"] = new SelectList(_context.Places, "ID", "ID");
-           ViewData["StatusId"] = new SelectList(_context.Statuses, "ID", "ID");
+            ViewData["DestinationPlaceId"] = new SelectList(_context.Places, "ID", "Name");
+            ViewData["RideId"] = new SelectList(_context.Rides, "ID", "Name");
+            ViewData["StartingPlaceId"] = new SelectList(_context.Places, "ID", "Name");
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "ID", "Name");
             return Page();
         }
 

@@ -29,7 +29,8 @@ namespace TrainStation.Data
                 new Status {Name = "go", Description = "The train is heading to the station"},
                 new Status {Name = "leave", Description = "The train has leave the station"},
                 new Status {Name = "end", Description = "The train reached its destination"},
-                new Status {Name = "problem", Description = "The train occured an technical issue"}
+                new Status {Name = "problem", Description = "The train occured an technical issue"},
+                new Status {Name = "future", Description = "The journey is in the future"},
             };
 
             var engines = new Engine[]
@@ -42,10 +43,10 @@ namespace TrainStation.Data
             var cars = new Car[]
             {
                 new Car {Name = "Rose", Sitting = 30, Standing = 25, Available = true, ProductionDate = DateTime.Parse("1999-01-01")},
-                new Car {Name = "Gilly", Sitting = 30, Standing = 25, Available = true, ProductionDate = DateTime.Parse("1989-09-01")},
-                new Car {Name = "Poppy", Sitting = 30, Standing = 25, Available = true, ProductionDate = DateTime.Parse("1979-06-01")},
-                new Car {Name = "Mint", Sitting = 30, Standing = 25, Available = true, ProductionDate = DateTime.Parse("1993-05-01")},
-                new Car {Name = "Apple", Sitting = 30, Standing = 25, Available = true, ProductionDate = DateTime.Parse("1969-12-01")}
+                new Car {Name = "Gilly", Sitting = 28, Standing = 35, Available = true, ProductionDate = DateTime.Parse("1989-09-01")},
+                new Car {Name = "Poppy", Sitting = 15, Standing = 20, Available = true, ProductionDate = DateTime.Parse("1979-06-01")},
+                new Car {Name = "Mint", Sitting = 32, Standing = 24, Available = true, ProductionDate = DateTime.Parse("1993-05-01")},
+                new Car {Name = "Apple", Sitting = 26, Standing = 22, Available = true, ProductionDate = DateTime.Parse("1969-12-01")}
             };
             
             var head = permissions.FirstOrDefault(v => v.Name == "head");

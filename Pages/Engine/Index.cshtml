@@ -33,7 +33,9 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductionDate)
+                @Html.DisplayFor(modelItem => item.ProductionDate.Day).
+                @Html.DisplayFor(modelItem => item.ProductionDate.Month).
+                @Html.DisplayFor(modelItem => item.ProductionDate.Year)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Available)

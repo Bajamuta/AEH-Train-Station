@@ -2,11 +2,11 @@
 @model TrainStation.Pages.Employee.CreateModel
 
 @{
-    ViewData["Title"] = "Employee add";
+    ViewData["Title"] = "Create";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Add</h1>
+<h1>Create</h1>
 
 <h4>Employee</h4>
 <hr />
@@ -30,10 +30,8 @@
                 <span asp-validation-for="Employee.BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Employee.Permission" class="control-label"></label>
-                @*<input asp-for="Employee.Type" class="form-control" />*@
-                <select name="typeId" asp-items="Model.Options" asp-for="PermissionID" class="form-control"></select>
-                <span asp-validation-for="PermissionID" class="text-danger"></span>
+                <label asp-for="Employee.PermissionID" class="control-label"></label>
+                <select asp-for="Employee.PermissionID" class ="form-control" asp-items="ViewBag.PermissionID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -46,6 +44,3 @@
     <a asp-page="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

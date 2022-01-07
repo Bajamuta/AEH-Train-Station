@@ -21,54 +21,12 @@ namespace TrainStation.Pages.Employee
 
         public IActionResult OnGet()
         {
-            Options = _context.Permissions.Select(a => 
-                new SelectListItem 
-                {
-                    Value = a.ID.ToString(),
-                    Text =  a.Name
-                }).ToList();
+        ViewData["PermissionID"] = new SelectList(_context.Permissions, "ID", "Name");
             return Page();
         }
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            /*if (id == null)
-            {
-                return NotFound();
-            }
-
-            Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
-
-            if (Movie == null)
-            {
-                return NotFound();
-            }*/
-            
-            Options = _context.Permissions.Select(a => 
-                new SelectListItem 
-                {
-                    Value = a.ID.ToString(),
-                    Text =  a.Name
-                }).ToList();
-            return Page();
-        }
-        
-
-        public IActionResult OnSet()
-        {
-            Employee.PermissionID = Int32.Parse(PermissionID);
-            var perm = _context.Permissions.FirstOrDefault(v => v.ID == Employee.PermissionID);
-            Employee.Permission = perm;
-            return Page();
-        }
-        
-        public List<SelectListItem> Options { get; set; }
-        // public int PermissionID { get; set; }
 
         [BindProperty]
         public Models.Employee Employee { get; set; }
-        
-        [BindProperty]
-        public string PermissionID { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

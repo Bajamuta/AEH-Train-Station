@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 #nullable disable
@@ -17,7 +18,11 @@ namespace TrainStation.Models
         [Key]
         public int ID { get; set; }
         public string Name { get; set; }
+        
+        [DisplayName("Postalcode")]
         public int PostalCode { get; set; }
+        
+        [DisplayName("Travel time")]
         public TimeSpan TravelTime { get; set; }
 
         public virtual ICollection<Journey> JourneyDestinationPlaces { get; set; }

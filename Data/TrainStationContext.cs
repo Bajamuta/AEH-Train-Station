@@ -31,7 +31,6 @@ namespace TrainStation.Data
         public virtual DbSet<Car> Car { get; set; }
         public virtual DbSet<Cars> Cars { get; set; }
         public virtual DbSet<Conductor> Conductors { get; set; }
-        public virtual DbSet<Day> Days { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Engine> Engines { get; set; }
         public virtual DbSet<Journey> Journeys { get; set; }
@@ -207,13 +206,6 @@ namespace TrainStation.Data
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
-            modelBuilder.Entity<Day>(entity =>
-            {
-                entity.ToTable("Day");
-
-                entity.Property(e => e.ID).HasColumnName("ID");
-            });
-
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.ToTable("Employee");
@@ -264,11 +256,6 @@ namespace TrainStation.Data
                 entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
                 entity.Property(e => e.TicketBasePrice).HasColumnType("decimal(18, 2)");
-
-                entity.HasOne(d => d.Day)
-                    .WithMany(p => p.Journeys)
-                    .HasForeignKey(d => d.DayId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasOne(d => d.DestinationPlace)
                     .WithMany(p => p.JourneyDestinationPlaces)

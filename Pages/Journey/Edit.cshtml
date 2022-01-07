@@ -16,11 +16,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Journey.ID" />
             <div class="form-group">
-                <label asp-for="Journey.DayId" class="control-label"></label>
-                <select asp-for="Journey.DayId" class="form-control" asp-items="ViewBag.DayId"></select>
-                <span asp-validation-for="Journey.DayId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Journey.StatusId" class="control-label"></label>
                 <select asp-for="Journey.StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
                 <span asp-validation-for="Journey.StatusId" class="text-danger"></span>

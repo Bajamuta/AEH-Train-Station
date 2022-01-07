@@ -64,19 +64,6 @@ namespace TrainStation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Day",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Day", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Engine",
                 columns: table => new
                 {
@@ -405,12 +392,6 @@ namespace TrainStation.Migrations
                 {
                     table.PrimaryKey("PK_Journey", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Journey_Day_DayID",
-                        column: x => x.DayID,
-                        principalTable: "Day",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Journey_Place_DestinationPlaceID",
                         column: x => x.DestinationPlaceID,
                         principalTable: "Place",
@@ -619,9 +600,6 @@ namespace TrainStation.Migrations
 
             migrationBuilder.DropTable(
                 name: "Ticket");
-
-            migrationBuilder.DropTable(
-                name: "Day");
 
             migrationBuilder.DropTable(
                 name: "Place");

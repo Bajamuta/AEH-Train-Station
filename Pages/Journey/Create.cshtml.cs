@@ -21,16 +21,18 @@ namespace TrainStation.Pages.Journey
 
         public IActionResult OnGet()
         {
-        ViewData["DayId"] = new SelectList(_context.Days, "ID", "ID");
-        ViewData["DestinationPlaceId"] = new SelectList(_context.Places, "ID", "ID");
-        ViewData["RideId"] = new SelectList(_context.Rides, "ID", "ID");
-        ViewData["StartingPlaceId"] = new SelectList(_context.Places, "ID", "ID");
-        ViewData["StatusId"] = new SelectList(_context.Statuses, "ID", "ID");
+            ViewData["DestinationPlaceId"] = new SelectList(_context.Places, "ID", "Name");
+            ViewData["RideId"] = new SelectList(_context.Rides, "ID", "Name");
+            ViewData["StartingPlaceId"] = new SelectList(_context.Places, "ID", "Name");
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "ID", "Name");
             return Page();
         }
 
         [BindProperty]
         public Models.Journey Journey { get; set; }
+        
+        [BindProperty]
+        public int BreakTemp { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -38,6 +40,20 @@ namespace TrainStation.Pages.Journey
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+            Journey.StatusId = _context.Statuses.FirstOrDefault(s => s.Name == "future").ID;
+            Journey.StartingPlace = _context.Places.FirstOrDefault(p => p.ID == Journey.StartingPlaceId);
+            Journey.DestinationPlace = _context.Places.FirstOrDefault(p => p.ID == Journey.DestinationPlaceId);
+            Console.WriteLine("Here", Journey.DestinationPlace.TravelTime.ToString());
+            try
+            {
+                Journey.BreakTimeOnStation = Journey.CalculateBreakTime(BreakTemp);
+                Journey.FullTimeRide = Journey.CalculateFullTime();
+                Journey.EndingDateTime = Journey.CalculateEndTime();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error:", e);
             }
 
             _context.Journeys.Add(Journey);

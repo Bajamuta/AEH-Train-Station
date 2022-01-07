@@ -2,7 +2,7 @@
 @model TrainStation.Pages.Employee.DetailsModel
 
 @{
-    ViewData["Title"] = "Employee details";
+    ViewData["Title"] = "Details";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
@@ -34,7 +34,7 @@
             @Html.DisplayNameFor(model => model.Employee.Permission)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Permission)
+            @Html.DisplayFor(model => model.Employee.Permission.ID)
         </dd>
     </dl>
 </div>

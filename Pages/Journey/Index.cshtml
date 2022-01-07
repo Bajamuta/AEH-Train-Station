@@ -13,39 +13,35 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].StartingDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].BreakTimeOnStation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].FullTimeRide)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].EndingDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].TicketBasePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].Day)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].DestinationPlace)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].Ride)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].StartingPlace)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].Status)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].StartingPlace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].DestinationPlace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].Status)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].Ride)
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].StartingDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].EndingDateTime)
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].BreakTimeOnStation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].FullTimeRide)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journey[0].TicketBasePrice)
+        </th>
+    </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Journey) {
@@ -64,9 +60,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TicketBasePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Day.ID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DestinationPlace.ID)

@@ -293,22 +293,6 @@ namespace TrainStation.Migrations
                     b.ToTable("Conductors");
                 });
 
-            modelBuilder.Entity("TrainStation.Models.Day", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Day");
-                });
-
             modelBuilder.Entity("TrainStation.Models.Employee", b =>
                 {
                     b.Property<int>("ID")
@@ -692,11 +676,6 @@ namespace TrainStation.Migrations
 
             modelBuilder.Entity("TrainStation.Models.Journey", b =>
                 {
-                    b.HasOne("TrainStation.Models.Day", "Day")
-                        .WithMany("Journeys")
-                        .HasForeignKey("DayId")
-                        .IsRequired();
-
                     b.HasOne("TrainStation.Models.Place", "DestinationPlace")
                         .WithMany("JourneyDestinationPlaces")
                         .HasForeignKey("DestinationPlaceId")
@@ -716,8 +695,6 @@ namespace TrainStation.Migrations
                         .WithMany("Journeys")
                         .HasForeignKey("StatusId")
                         .IsRequired();
-
-                    b.Navigation("Day");
 
                     b.Navigation("DestinationPlace");
 
@@ -802,11 +779,6 @@ namespace TrainStation.Migrations
                     b.Navigation("Cars");
 
                     b.Navigation("Tickets");
-                });
-
-            modelBuilder.Entity("TrainStation.Models.Day", b =>
-                {
-                    b.Navigation("Journeys");
                 });
 
             modelBuilder.Entity("TrainStation.Models.Employee", b =>

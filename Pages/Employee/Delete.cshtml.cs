@@ -29,7 +29,8 @@ namespace TrainStation.Pages.Employee
                 return NotFound();
             }
 
-            Employee = await _context.Employees.FirstOrDefaultAsync(m => m.ID == id);
+            Employee = await _context.Employees
+                .Include(e => e.Permission).FirstOrDefaultAsync(m => m.ID == id);
 
             if (Employee == null)
             {

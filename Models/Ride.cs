@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 #nullable disable
@@ -18,7 +19,11 @@ namespace TrainStation.Models
         [Key]
         public int ID { get; set; }
         public string Name { get; set; }
+        
+        [DisplayName("Engine")]
         public int EngineId { get; set; }
+        
+        [DisplayName("Driver")]
         public int DriverId { get; set; }
 
         public virtual Employee Driver { get; set; }

@@ -19,11 +19,12 @@ namespace TrainStation.Pages.Employee
             _context = context;
         }
 
-        public IList<Models.Employee> Employees { get;set; }
+        public IList<Models.Employee> Employee { get;set; }
 
         public async Task OnGetAsync()
         {
-            Employees = await _context.Employees.ToListAsync();
+            Employee = await _context.Employees
+                .Include(e => e.Permission).ToListAsync();
         }
     }
 }

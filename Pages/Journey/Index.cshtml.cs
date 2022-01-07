@@ -24,7 +24,6 @@ namespace TrainStation.Pages.Journey
         public async Task OnGetAsync()
         {
             Journey = await _context.Journeys
-                .Include(j => j.Day)
                 .Include(j => j.DestinationPlace)
                 .Include(j => j.Ride)
                 .Include(j => j.StartingPlace)

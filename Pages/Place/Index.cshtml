@@ -35,7 +35,8 @@
                 @Html.DisplayFor(modelItem => item.PostalCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TravelTime)
+                @Html.DisplayFor(modelItem => item.TravelTime.Hours)h 
+                @Html.DisplayFor(modelItem => item.TravelTime.Minutes)min
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
