@@ -47,8 +47,9 @@ namespace TrainStation.Data
             Console.WriteLine("ON CONFIGURING");
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(
-                    @"Server=localhost,1433; Database=TrainStation; User=sa; Password='P@$$w0rd!'");
+                /*optionsBuilder.UseSqlServer(
+                    @"Server=localhost,1433; Database=TrainStation; User=sa; Password='P@$$w0rd!'");*/
+                throw new Exception("NO CONNECTION STRING IN DBCONTEXT");
             }
         }
 

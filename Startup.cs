@@ -29,7 +29,9 @@ namespace TrainStation
         public void ConfigureServices(IServiceCollection services)
         {
             Console.WriteLine("CONFIGURE SERVICES");
-            services.AddDbContext<TrainStationContext>();
+            // services.AddDbContext<TrainStationContext>();
+            Console.WriteLine(Configuration.GetConnectionString("TrainStationContext"));
+            services.AddDbContext<TrainStationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TrainStationContext")));
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<TrainStationContext>();
