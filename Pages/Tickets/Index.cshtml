@@ -1,5 +1,5 @@
-@page
-@model TrainStation.Pages.Journey.IndexModel
+﻿@page
+@model TrainStation.Pages.Tickets.IndexModel
 
 @{
     ViewData["Title"] = "Journeys' list";
@@ -76,9 +76,8 @@
                 @Html.DisplayFor(modelItem => item.TicketBasePrice)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-page="./Ticket" asp-route-id="@item.ID">Buy ticket</a> 
             </td>
         </tr>
 }

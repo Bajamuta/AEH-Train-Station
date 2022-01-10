@@ -44,7 +44,6 @@ namespace TrainStation.Pages.Journey
             Journey.StatusId = _context.Statuses.FirstOrDefault(s => s.Name == "future").ID;
             Journey.StartingPlace = _context.Places.FirstOrDefault(p => p.ID == Journey.StartingPlaceId);
             Journey.DestinationPlace = _context.Places.FirstOrDefault(p => p.ID == Journey.DestinationPlaceId);
-            Console.WriteLine("Here", Journey.DestinationPlace.TravelTime.ToString());
             try
             {
                 Journey.BreakTimeOnStation = Journey.CalculateBreakTime(BreakTemp);

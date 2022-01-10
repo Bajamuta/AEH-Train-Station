@@ -66,6 +66,7 @@ namespace TrainStation.Data
 
             var places = new Place[]
             {
+                new Place { Name = "Station", PostalCode = 000, TravelTime = TimeSpan.Parse("0")},
                 new Place { Name = "London", PostalCode = 123, TravelTime = TimeSpan.Parse("1:12")},
                 new Place { Name = "Warsaw", PostalCode = 254, TravelTime = TimeSpan.Parse("2:35")},
                 new Place { Name = "Glasgow", PostalCode = 125, TravelTime = TimeSpan.Parse("0:45")},
