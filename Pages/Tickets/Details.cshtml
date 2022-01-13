@@ -1,19 +1,76 @@
 ﻿@page
-@model TrainStation.Pages.Tickets.Details
+@model TrainStation.Pages.Tickets.DetailsModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Journey details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h1>Details</h1>
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
 <div>
-    
+    <h4>Journey</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.StartingDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.StartingDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.BreakTimeOnStation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.BreakTimeOnStation.Hours)h
+            @Html.DisplayFor(model => model.Journey.BreakTimeOnStation.Minutes)min
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.FullTimeRide)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.FullTimeRide.Hours)h
+            @Html.DisplayFor(model => model.Journey.FullTimeRide.Minutes)min
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.EndingDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.EndingDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.TicketBasePrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.TicketBasePrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.DestinationPlace)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.DestinationPlace.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.Ride)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.Ride.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.StartingPlace)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.StartingPlace.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journey.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journey.Status.Name)
+        </dd>
+    </dl>
 </div>
-</body>
-</html>
+<div>
+    <a asp-page="./Tickets" asp-route-id="@Model.Journey.ID">Buy a ticket</a> |
+    <a asp-page="./Index">Back</a>
+</div>

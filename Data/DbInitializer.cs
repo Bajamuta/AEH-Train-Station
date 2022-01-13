@@ -173,6 +173,44 @@ namespace TrainStation.Data
                 }
             }
 
+            if (!context.Rides.Any())
+            {
+                try
+                {
+                    context.Set<Ride>();
+                    context.Add(new Ride
+                    {
+                        Name = "First Ride",
+                        EngineId = context.Engines.FirstOrDefault().ID,
+                        DriverId = context.Employees.Where(e => e.PermissionID == driver.ID).FirstOrDefault().ID
+                    });
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("error: ", e);
+                }
+            }
+
+            if (!context.Cars.Any())
+            {
+                try
+                {
+                    context.Set<Cars>();
+                    context.Add(
+                        new Cars
+                        {
+                            CarID = context.Car.FirstOrDefault().ID,
+                            RideID = context.Rides.FirstOrDefault().ID
+                        });
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("error: ", e);
+                }
+            }
+
             return;
         }
     }

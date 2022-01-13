@@ -234,8 +234,6 @@ namespace TrainStation.Data
             {
                 entity.ToTable("Journey");
 
-                entity.HasIndex(e => e.DayId, "IX_Journey_DayID");
-
                 entity.HasIndex(e => e.DestinationPlaceId, "IX_Journey_DestinationPlaceID");
 
                 entity.HasIndex(e => e.RideId, "IX_Journey_RideID");
@@ -245,8 +243,6 @@ namespace TrainStation.Data
                 entity.HasIndex(e => e.StatusId, "IX_Journey_StatusID");
 
                 entity.Property(e => e.ID).HasColumnName("ID");
-
-                entity.Property(e => e.DayId).HasColumnName("DayID");
 
                 entity.Property(e => e.DestinationPlaceId).HasColumnName("DestinationPlaceID");
 

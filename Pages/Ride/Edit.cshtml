@@ -1,4 +1,5 @@
 @page
+@using TrainStation.Models
 @model TrainStation.Pages.Ride.EditModel
 
 @{
@@ -10,7 +11,7 @@
 <h4>Ride</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-12">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Ride.ID" />
@@ -19,15 +20,43 @@
                 <input asp-for="Ride.Name" class="form-control" />
                 <span asp-validation-for="Ride.Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Ride.EngineId" class="control-label"></label>
-                <select asp-for="Ride.EngineId" class="form-control" asp-items="ViewBag.EngineId"></select>
-                <span asp-validation-for="Ride.EngineId" class="text-danger"></span>
+            @*<div class="form-group">
+                <label asp-for="Ride.Engine" class="control-label"></label>
+                <select asp-for="Engine" class="form-control" asp-items="Model.Engines"></select>
+                <span asp-validation-for="Ride.Engine" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ride.DriverId" class="control-label"></label>
-                <select asp-for="Ride.DriverId" class="form-control" asp-items="ViewBag.DriverId"></select>
-                <span asp-validation-for="Ride.DriverId" class="text-danger"></span>
+                <label asp-for="Ride.Driver" class="control-label"></label>
+                <select asp-for="Driver" class="form-control" asp-items="Model.Employees"></select>
+                <span asp-validation-for="Ride.Driver" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Ride.Cars" class="control-label"></label>
+                <div class="row">
+                    <div class="col-4">
+                        <h3>RIDE</h3>
+                        <ul>
+                            @foreach (Cars c in Model.Ride.Cars)
+                            {
+                                <li>
+                                    @Html.DisplayFor(model => c.Car.Name)
+                                    <a class="" asp-action="">Test</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h3>RIDE & CARS</h3>
+                        <ul>
+                        @foreach (Cars c in Model.ListRideCars)
+                        {
+                            <li>
+                                @Html.DisplayFor(model => c.CarID)
+                            </li>
+                        }
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

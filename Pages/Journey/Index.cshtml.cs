@@ -27,7 +27,12 @@ namespace TrainStation.Pages.Journey
                 .Include(j => j.DestinationPlace)
                 .Include(j => j.Ride)
                 .Include(j => j.StartingPlace)
-                .Include(j => j.Status).ToListAsync();
+                .Include(j => j.Status)
+                .Include(j => j.Ride.Driver)
+                .Include(j => j.Ride.Cars)
+                .Include(j => j.Ride.Conductors)
+                .Include(j => j.Ride.Engine)
+                .ToListAsync();
         }
     }
 }

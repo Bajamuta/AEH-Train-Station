@@ -1,4 +1,5 @@
 @page
+@using TrainStation.Models
 @model TrainStation.Pages.Journey.DetailsModel
 
 @{
@@ -9,7 +10,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Journey</h4>
+    <h4>Journey @Html.DisplayFor(model => model.Journey.ID)</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -22,13 +23,15 @@
             @Html.DisplayNameFor(model => model.Journey.BreakTimeOnStation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Journey.BreakTimeOnStation)
+            @Html.DisplayFor(model => model.Journey.BreakTimeOnStation.Hours)h
+            @Html.DisplayFor(model => model.Journey.BreakTimeOnStation.Minutes)min
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Journey.FullTimeRide)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Journey.FullTimeRide)
+            @Html.DisplayFor(model => model.Journey.FullTimeRide.Hours)h
+            @Html.DisplayFor(model => model.Journey.FullTimeRide.Minutes)min
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Journey.EndingDateTime)
@@ -46,26 +49,47 @@
             @Html.DisplayNameFor(model => model.Journey.DestinationPlace)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Journey.DestinationPlace.ID)
+            @Html.DisplayFor(model => model.Journey.DestinationPlace.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Journey.Ride)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Journey.Ride.ID)
+            @Html.DisplayFor(model => model.Journey.Ride.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Journey.StartingPlace)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Journey.StartingPlace.ID)
+            @Html.DisplayFor(model => model.Journey.StartingPlace.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Journey.Status)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Journey.Status.ID)
+            @Html.DisplayFor(model => model.Journey.Status.Name)
         </dd>
+        <dt class="col-sm-2">
+             @Html.DisplayNameFor(model => model.Ride.Engine)
+         </dt>
+         <dd class="col-sm-10">
+             @Html.DisplayFor(model => model.Ride.Engine.Name)
+         </dd>         
+        <dt class="col-sm-2">
+             @Html.DisplayNameFor(model => model.Ride.Driver)
+         </dt>
+         <dd class="col-sm-10">
+             @Html.DisplayFor(model => model.Ride.Driver.Name)
+         </dd>       
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ride.Cars)
+        </dt>
+        @foreach (Cars c in Model.Cars)
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => c.Car.Name)
+            </dd> 
+        }
     </dl>
 </div>
 <div>

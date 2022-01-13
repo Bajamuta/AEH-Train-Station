@@ -30,7 +30,9 @@ namespace TrainStation.Pages.Ride
 
             Ride = await _context.Rides
                 .Include(r => r.Driver)
-                .Include(r => r.Engine).FirstOrDefaultAsync(m => m.ID == id);
+                .Include(r => r.Engine)
+                .Include(r => r.Cars)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Ride == null)
             {

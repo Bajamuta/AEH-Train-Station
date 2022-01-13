@@ -6,11 +6,8 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Journeys' list</h1>
+<h1>Pick your journey</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
     <tr>
@@ -27,19 +24,7 @@
             @Html.DisplayNameFor(model => model.Journey[0].Status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Journey[0].Ride)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Journey[0].EndingDateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Journey[0].BreakTimeOnStation)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Journey[0].FullTimeRide)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Journey[0].TicketBasePrice)
         </th>
     </tr>
     </thead>
@@ -57,27 +42,14 @@
             </td>         
              <td>
                  @Html.DisplayFor(modelItem => item.Status.Name)
-             </td>           
-             <td>
-                 @Html.DisplayFor(modelItem => item.Ride.Name)
-             </td>   
-            <td>
-                @Html.DisplayFor(modelItem => item.EndingDateTime)
-            </td>            
-            <td>
-                @Html.DisplayFor(modelItem => item.BreakTimeOnStation.Hours)h
-                @Html.DisplayFor(modelItem => item.BreakTimeOnStation.Minutes)min
-            </td>
+             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FullTimeRide.Hours)h
                 @Html.DisplayFor(modelItem => item.FullTimeRide.Minutes)min
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TicketBasePrice)
-            </td>
-            <td>
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Ticket" asp-route-id="@item.ID">Buy ticket</a> 
+                <a asp-page="./Tickets" asp-route-id="@item.ID">Buy a ticket</a> 
             </td>
         </tr>
 }

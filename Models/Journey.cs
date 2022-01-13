@@ -16,10 +16,7 @@ namespace TrainStation.Models
 
         [Key]
         public int ID { get; set; }
-        
-        [DisplayName("Day")]
-        public int DayId { get; set; }
-        
+
         [DisplayName("Status")]
         public int StatusId { get; set; }
         

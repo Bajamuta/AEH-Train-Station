@@ -25,7 +25,6 @@
       <Folder Include="Pages\Journey" />
       <Folder Include="Pages\Permission" />
       <Folder Include="Pages\Place" />
-      <Folder Include="Pages\Ride" />
     </ItemGroup>
 
 </Project>
