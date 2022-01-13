@@ -44,18 +44,26 @@ namespace TrainStation.Controllers
             ).ToListAsync();
         }*/
         
-        public Task<List<Car>> GetAvailableCar()
+        public IEnumerable<Car> GetAvailableCar()
         {
             return _context.Car.Where(v => v.Available == true)
-                .Include(c => c.Cars)
                 .Include(c => c.Tickets)
-                .ToListAsync();
+                .Include(c => c.Cars)
+                .AsNoTracking()
+                .AsEnumerable();
         }
 
         public void MakeCarAvailable(int id)
         {
             Car c = _context.Car.First(v => v.ID == id);
             c.Available = true;
+            _context.Attach(c).State = EntityState.Modified;
+        }
+        
+        public void MakeCarUnavailable(int id)
+        {
+            Car c = _context.Car.First(v => v.ID == id);
+            c.Available = false;
             _context.Attach(c).State = EntityState.Modified;
         }
 

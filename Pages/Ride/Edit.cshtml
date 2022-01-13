@@ -20,41 +20,32 @@
                 <input asp-for="Ride.Name" class="form-control" />
                 <span asp-validation-for="Ride.Name" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
+            <div class="form-group">
                 <label asp-for="Ride.Engine" class="control-label"></label>
-                <select asp-for="Engine" class="form-control" asp-items="Model.Engines"></select>
+                <select asp-for="SelectedEngineId" class="form-control" asp-items="Model.Engines"></select>
                 <span asp-validation-for="Ride.Engine" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Ride.Driver" class="control-label"></label>
-                <select asp-for="Driver" class="form-control" asp-items="Model.Employees"></select>
+                <select asp-for="SelectedDriverId" class="form-control" asp-items="Model.Employees"></select>
                 <span asp-validation-for="Ride.Driver" class="text-danger"></span>
-            </div>*@
+            </div>
             <div class="form-group">
                 <label asp-for="Ride.Cars" class="control-label"></label>
                 <div class="row">
                     <div class="col-4">
                         <h3>RIDE</h3>
-                        <ul>
-                            @foreach (Cars c in Model.Ride.Cars)
-                            {
-                                <li>
-                                    @Html.DisplayFor(model => c.Car.Name)
-                                    <button asp-page-handler="edit" class="btn btn-default">Test</button>
-                                </li>
-                            }
-                        </ul>
+                        <select size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListRideCars">
+                            <option value="" disabled>--- Select Car ---</option>
+                        </select>
+                         <button asp-page-handler="delete" class="btn btn-outline-primary">Remove</button>
                     </div>
                     <div class="col-4">
                         <h3>AVAILABLE CARS</h3>
-                        <ul>
-                        @foreach (Car c in Model.ListAvailableCars)
-                        {
-                            <li>
-                                @Html.DisplayFor(model => c.Name)
-                            </li>
-                        }
-                        </ul>
+                        <select size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListAvailableCars">
+                            <option value="" disabled>--- Select Car ---</option>
+                        </select>
+                        <button asp-page-handler="add" class="btn btn-outline-primary">Add</button>
                     </div>
                 </div>
             </div>

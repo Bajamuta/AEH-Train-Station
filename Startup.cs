@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using TrainStation.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,13 @@ namespace TrainStation
             Console.WriteLine("CONFIGURE SERVICES");
             // services.AddDbContext<TrainStationContext>();
             Console.WriteLine(Configuration.GetConnectionString("TrainStationContext"));
-            services.AddDbContext<TrainStationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TrainStationContext")));
+            services.AddDbContext<TrainStationContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("TrainStationContext"));
+                options.ConfigureWarnings(w => w
+                    .Default(WarningBehavior.Ignore)
+                    .Throw(RelationalEventId.MultipleCollectionIncludeWarning));
+            });
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<TrainStationContext>();

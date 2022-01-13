@@ -38,8 +38,15 @@ namespace TrainStation.Controllers
         public EntityEntry<Cars> RemoveCarFromRide(int carId)
         {
             Cars c = _context.Cars.First(v => v.CarID == carId);
-            _context.Attach(c).State = EntityState.Deleted;
             return _context.Cars.Remove(c);
+        }
+        
+        public EntityEntry<Cars> AddCarToRide(int carId, int rideId)
+        {
+            Console.WriteLine("ADDING NEW CARS-RIDE " + carId + " " + rideId);
+            Cars c = new Cars {CarID = carId, RideID = rideId};
+            _context.Attach(c).State = EntityState.Added;
+            return _context.Cars.Add(c);
         }
         
         // GET

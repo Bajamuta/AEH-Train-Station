@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -45,6 +46,7 @@ namespace TrainStation.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             Console.WriteLine("ON CONFIGURING");
+
             if (!optionsBuilder.IsConfigured)
             {
                 /*optionsBuilder.UseSqlServer(
