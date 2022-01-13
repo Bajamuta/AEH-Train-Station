@@ -13,9 +13,9 @@ namespace TrainStation.Controllers
             _context = context;
         }
 
-        public void UpdateRideCars()
+        public IActionResult Edit()
         {
-            Console.WriteLine("UPDATE RIDE CARS");
+            return View();
         }
 
         // GET

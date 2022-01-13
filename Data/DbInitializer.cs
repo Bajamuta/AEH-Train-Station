@@ -194,16 +194,27 @@ namespace TrainStation.Data
 
             if (!context.Cars.Any())
             {
+                Car car = context.Car.FirstOrDefault();
+                Ride ride = context.Rides.FirstOrDefault();
                 try
                 {
                     context.Set<Cars>();
                     context.Add(
                         new Cars
                         {
-                            CarID = context.Car.FirstOrDefault().ID,
-                            RideID = context.Rides.FirstOrDefault().ID
+                            CarID = car.ID,
+                            RideID = ride.ID
                         });
                     context.SaveChanges();
+                    try
+                    {
+                        context.Update(car).Entity.Available = false;
+                        context.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception("error: ", e);
+                    }
                 }
                 catch (Exception e)
                 {

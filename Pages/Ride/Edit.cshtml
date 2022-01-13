@@ -1,9 +1,9 @@
-@page
+@page "{id?}"
 @using TrainStation.Models
 @model TrainStation.Pages.Ride.EditModel
 
 @{
-    ViewData["Title"] = "Ride edit";
+    ViewData["Title"] = "Edit";
 }
 
 <h1>Edit</h1>
@@ -40,18 +40,18 @@
                             {
                                 <li>
                                     @Html.DisplayFor(model => c.Car.Name)
-                                    <a class="" asp-action="">Test</a>
+                                    <button asp-page-handler="edit" class="btn btn-default">Test</button>
                                 </li>
                             }
                         </ul>
                     </div>
                     <div class="col-4">
-                        <h3>RIDE & CARS</h3>
+                        <h3>AVAILABLE CARS</h3>
                         <ul>
-                        @foreach (Cars c in Model.ListRideCars)
+                        @foreach (Car c in Model.ListAvailableCars)
                         {
                             <li>
-                                @Html.DisplayFor(model => c.CarID)
+                                @Html.DisplayFor(model => c.Name)
                             </li>
                         }
                         </ul>

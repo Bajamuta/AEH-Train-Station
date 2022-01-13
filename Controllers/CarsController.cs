@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TrainStation.Data;
 using TrainStation.Models;
 
@@ -31,6 +33,13 @@ namespace TrainStation.Controllers
                 .Include(c => c.Car)
                 .Include(c => c.Ride)
                 .ToListAsync();
+        }
+
+        public EntityEntry<Cars> RemoveCarFromRide(int carId)
+        {
+            Cars c = _context.Cars.First(v => v.CarID == carId);
+            _context.Attach(c).State = EntityState.Deleted;
+            return _context.Cars.Remove(c);
         }
         
         // GET

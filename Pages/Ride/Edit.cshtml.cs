@@ -19,11 +19,13 @@ namespace TrainStation.Pages.Ride
     {
         private readonly TrainStation.Data.TrainStationContext _context;
         private readonly CarsController _carsController;
+        private readonly CarController _carController;
 
         public EditModel(TrainStation.Data.TrainStationContext context)
         {
             _context = context;
             _carsController = new CarsController(context);
+            _carController = new CarController(context);
         }
 
         [BindProperty]
@@ -32,8 +34,11 @@ namespace TrainStation.Pages.Ride
         public SelectList Engines { get; set; }
         public Models.Employee Driver { get; set; }
         public SelectList Employees { get; set; }
+        public Models.Car SelectedCar { get; set; }
 
         public List<Cars> ListRideCars { get; set; }
+        public List<Models.Car> ListAvailableCars { get; set; }
+        public string Message { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -55,12 +60,30 @@ namespace TrainStation.Pages.Ride
             }
 
             ListRideCars = await _carsController.GetAllRideCars();
+            ListAvailableCars = await _carController.GetAvailableCar();
 
             //TODO controller
             Engines = new SelectList(_context.Engines, "ID", "Name");
             Employees = new SelectList(_context.Employees, "ID", "Name");
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostEdit(int id)
+        {
+            try
+            {
+                _carsController.RemoveCarFromRide(id);
+                _context.SaveChanges();
+                _carController.MakeCarAvailable(id);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("ERROR", e);
+            }
+            Console.WriteLine("ON UPDATE ");
+            return RedirectToPage("Edit", Ride.ID);
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.

@@ -35,16 +35,28 @@ namespace TrainStation.Controllers
                 .FirstOrDefault(v => v.ID == id);
         }
 
-        public Task<List<Car>> SearchCar(Boolean available, int? sitting = null, int? standing = null)
+        /*public Task<List<Car>> SearchCar()
         {
             return _context.Car.Where(v => 
                 v.Available == available &&
                 (sitting == null || v.Sitting == sitting) &&
                 (standing == null || v.Standing == standing)
-            )
+            ).ToListAsync();
+        }*/
+        
+        public Task<List<Car>> GetAvailableCar()
+        {
+            return _context.Car.Where(v => v.Available == true)
                 .Include(c => c.Cars)
                 .Include(c => c.Tickets)
                 .ToListAsync();
+        }
+
+        public void MakeCarAvailable(int id)
+        {
+            Car c = _context.Car.First(v => v.ID == id);
+            c.Available = true;
+            _context.Attach(c).State = EntityState.Modified;
         }
 
         // GET
