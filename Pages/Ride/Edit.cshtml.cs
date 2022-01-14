@@ -50,7 +50,7 @@ namespace TrainStation.Pages.Ride
         public IEnumerable<Cars> TempCars { get; set; }
         public IEnumerable<Models.Employee> TempConductors { get; set; }
         public List<Models.Car> TempListCar { get; set; }
-        public List<Models.Employee> TempListConductor { get; set; }
+        public List<Models.Employee> TempListConductorsWithoutRide { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -80,35 +80,42 @@ namespace TrainStation.Pages.Ride
             foreach (var c in TempCars) TempListCar.Add(c.Car);
             var conductorPermissionId =
                 await _context.Permissions.Where(p => p.Name == "conductor").Select(e => e.ID).FirstAsync();
-            TempListConductor =
-                await _context.Employees.Where(e => e.PermissionID == conductorPermissionId).ToListAsync();
             
-            var allIdsConductorsWithRide = await _context.Conductors
+            
+            TempListConductorsWithoutRide =
+                await _context.Employees
+                    .Where(e => e.PermissionID == conductorPermissionId)
+                    .Include(e => e.Conductors)
+                    .Where(e => e.Conductors.Count == 0)
+                    .ToListAsync();
+            
+            
+            /*var allIdsConductorsWithRide = await _context.Conductors
                 .Include(c => c.Ride)
                 .Include(c => c.ConductorEmployee)
                 .Select(e => e.ID)
                 .ToListAsync();
 
-            var ListConductorsWithoutRide = new List<Models.Employee>();
+            var ListConductorsWithoutRide = new List<Models.Employee>();*/
 
-            try
+            /*try
             {
                 if (TempListConductor.Count > 0)
-                                foreach (var e in TempListConductor)
-                                    if (!allIdsConductorsWithRide.Contains(e.ID))
-                                        ListConductorsWithoutRide.Add(e);
+                    foreach (var e in TempListConductor)
+                        if (!allIdsConductorsWithRide.Contains(e.ID))
+                            ListConductorsWithoutRide.Add(e);
             }
             catch (Exception e)
             {
                 throw new Exception("ERROR", e);
-            }
+            }*/
 
             try
             {
                 ListRideCars = new SelectList(TempListCar, "ID", "Name");
                 ListAvailableCars = new SelectList(_context.Car.Where(c => c.Available), "ID", "Name");
                 ListRideConductors = new SelectList(TempConductors, "ID", "Name");
-                ListAvailableConductors = new SelectList(ListConductorsWithoutRide, "ID", "Name");
+                ListAvailableConductors = new SelectList(TempListConductorsWithoutRide, "ID", "Name");
                 Engines = new SelectList(_context.Engines, "ID", "Name");
                 Employees = new SelectList(_context.Employees, "ID", "Name");
             }
@@ -135,6 +142,23 @@ namespace TrainStation.Pages.Ride
 
             Console.WriteLine("ON Delete ");
             SelectedCarId = 0;
+            return RedirectToPage("Edit", Ride.ID);
+        }
+        
+        public IActionResult OnPostAddConductor(int selectedConductorId)
+        {
+            Console.WriteLine("ON Add " + selectedConductorId);
+            try
+            {
+                _conductorsController.AddConductorToRide(selectedConductorId, Ride.ID);
+                _context.SaveChanges();
+                _employeeController.UpdateEmployee(selectedConductorId);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("ERROR", e);
+            }
             return RedirectToPage("Edit", Ride.ID);
         }
 

@@ -42,10 +42,10 @@
                     </div>
                     <div class="col-4">
                         <h4>AVAILABLE CONDUCTORS</h4>
-                        <select size="8" asp-for="SelectedConductorId" class="form-control" asp-items="Model.ListAvailableConductors">
+                        <select name="selectedConductorId" size="8" asp-for="SelectedConductorId" class="form-control" asp-items="Model.ListAvailableConductors">
                             <option value="" disabled>--- Select Conductor ---</option>
                         </select>
-                        <button asp-page-handler="add" class="btn btn-outline-primary">Add</button>
+                        <button asp-page-handler="addConductor" class="btn btn-outline-primary">Add</button>
                     </div>
                 </div>
             </div>
