@@ -9,15 +9,15 @@
 <h1>Edit</h1>
 
 <h4>Ride</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-12">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Ride.ID" />
+            <input type="hidden" asp-for="Ride.ID"/>
             <div class="form-group">
                 <label asp-for="Ride.Name" class="control-label"></label>
-                <input asp-for="Ride.Name" class="form-control" />
+                <input asp-for="Ride.Name" class="form-control"/>
                 <span asp-validation-for="Ride.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -31,17 +31,36 @@
                 <span asp-validation-for="Ride.Driver" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Ride.Conductors" class="control-label"></label>
+                <div class="row">
+                    <div class="col-4">
+                        <h4>ALREADY IN THE RIDE</h4>
+                        <select size="8" asp-for="SelectedConductorId" class="form-control" asp-items="Model.ListRideConductors">
+                            <option value="" disabled>--- Select Conductor ---</option>
+                        </select>
+                        <button asp-page-handler="delete" class="btn btn-outline-primary">Remove</button>
+                    </div>
+                    <div class="col-4">
+                        <h4>AVAILABLE CONDUCTORS</h4>
+                        <select size="8" asp-for="SelectedConductorId" class="form-control" asp-items="Model.ListAvailableConductors">
+                            <option value="" disabled>--- Select Conductor ---</option>
+                        </select>
+                        <button asp-page-handler="add" class="btn btn-outline-primary">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label asp-for="Ride.Cars" class="control-label"></label>
                 <div class="row">
                     <div class="col-4">
-                        <h3>RIDE</h3>
+                        <h4>ALREADY IN THE RIDE</h4>
                         <select size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListRideCars">
                             <option value="" disabled>--- Select Car ---</option>
                         </select>
-                         <button asp-page-handler="delete" class="btn btn-outline-primary">Remove</button>
+                        <button asp-page-handler="delete" class="btn btn-outline-primary">Remove</button>
                     </div>
                     <div class="col-4">
-                        <h3>AVAILABLE CARS</h3>
+                        <h4>AVAILABLE CARS</h4>
                         <select size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListAvailableCars">
                             <option value="" disabled>--- Select Car ---</option>
                         </select>
@@ -50,7 +69,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -59,4 +78,3 @@
 <div>
     <a asp-page="./Index">Back to List</a>
 </div>
-

@@ -31,6 +31,15 @@
             @Html.DisplayFor(model => model.Ride.Engine.Name)
         </dd>
         <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Ride.Conductors)
+                </dt>
+                @foreach (Conductor c in Model.Ride.Conductors)
+                {
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => c.ConductorEmployee.Name)
+                    </dd>
+                }
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ride.Cars)
         </dt>
         @foreach (Cars c in Model.Ride.Cars)
