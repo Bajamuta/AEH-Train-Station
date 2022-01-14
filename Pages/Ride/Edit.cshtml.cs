@@ -102,13 +102,13 @@ namespace TrainStation.Pages.Ride
             return Page();
         }
 
-        public IActionResult OnPostDeleteCar()
+        public IActionResult OnPostDeleteCar(int selectedCarId)
         {
             try
             {
-                _carsController.RemoveCarFromRide(SelectedCarId);
+                _carsController.RemoveCarFromRide(selectedCarId);
                 _context.SaveChanges();
-                _carController.MakeCarAvailable(SelectedCarId);
+                _carController.MakeCarAvailable(selectedCarId);
                 _context.SaveChanges();
             }
             catch (Exception e)
@@ -157,12 +157,12 @@ namespace TrainStation.Pages.Ride
             return RedirectToPage("Edit", Ride.ID);
         }
 
-        public IActionResult OnPostAddCar()
+        public IActionResult OnPostAddCar(int selectedCarId)
         {
-            Console.WriteLine("ON Add " + SelectedCarId);
+            Console.WriteLine("ON Add " + selectedCarId);
             try
             {
-                _carsController.AddCarToRide(SelectedCarId, Ride.ID);
+                _carsController.AddCarToRide(selectedCarId, Ride.ID);
                 _context.SaveChanges();
                 _carController.MakeCarUnavailable(SelectedCarId);
                 _context.SaveChanges();

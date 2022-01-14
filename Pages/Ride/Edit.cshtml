@@ -54,14 +54,14 @@
                 <div class="row">
                     <div class="col-4">
                         <h4>ALREADY IN THE RIDE</h4>
-                        <select size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListRideCars">
+                        <select name="selectedCarId" size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListRideCars">
                             <option value="" disabled>--- Select Car ---</option>
                         </select>
                         <button asp-page-handler="deleteCar" class="btn btn-outline-primary">Remove</button>
                     </div>
                     <div class="col-4">
                         <h4>AVAILABLE CARS</h4>
-                        <select size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListAvailableCars">
+                        <select name="selectedCarId" size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListAvailableCars">
                             <option value="" disabled>--- Select Car ---</option>
                         </select>
                         <button asp-page-handler="addCar" class="btn btn-outline-primary">Add</button>
