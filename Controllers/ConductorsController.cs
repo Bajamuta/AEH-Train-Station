@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -22,6 +24,14 @@ namespace TrainStation.Controllers
             Conductor c = new Conductor {ConductorID = employeeId, RideID = rideId};
             _context.Attach(c).State = EntityState.Added;
             return _context.Conductors.Add(c);
+        }
+        
+        public EntityEntry<Conductor> RemoveConductorFromRide(int employeeId, int rideId)
+        {
+            Conductor c = _context.Conductors
+                .First(c => c.ConductorID == employeeId && c.RideID == rideId);
+            
+            return _context.Conductors.Remove(c);
         }
 
         // GET

@@ -47,8 +47,7 @@ namespace TrainStation.Pages.Ride
         public SelectList ListAvailableCars { get; set; }
         public SelectList ListAvailableConductors { get; set; }
         public SelectList ListRideConductors { get; set; }
-        public IEnumerable<Cars> TempCars { get; set; }
-        public IEnumerable<Models.Employee> TempConductors { get; set; }
+        public List<Models.Employee> TempRideConductors { get; set; }
         public List<Models.Car> TempListCar { get; set; }
         public List<Models.Employee> TempListConductorsWithoutRide { get; set; }
 
@@ -65,56 +64,33 @@ namespace TrainStation.Pages.Ride
 
             if (Ride == null) return NotFound();
 
-            TempCars = _context.Cars
-                .Include(c => c.Car)
-                .Include(c => c.Ride)
-                .Where(c => c.RideID == Ride.ID);
-
-            TempConductors = _context.Conductors
+            TempRideConductors = await _context.Conductors
                 .Include(c => c.ConductorEmployee)
                 .Include(c => c.Ride)
                 .Where(c => c.RideID == Ride.ID)
-                .Select(c => c.ConductorEmployee);
+                .Select(c => c.ConductorEmployee)
+                .ToListAsync();
 
-            TempListCar = new List<Models.Car>();
-            foreach (var c in TempCars) TempListCar.Add(c.Car);
-            var conductorPermissionId =
-                await _context.Permissions.Where(p => p.Name == "conductor").Select(e => e.ID).FirstAsync();
-            
+            TempListCar = await _context.Cars
+                .Include(c => c.Car)
+                .Include(c => c.Ride)
+                .Where(c => c.RideID == Ride.ID)
+                .Select(c => c.Car)
+                .ToListAsync();
             
             TempListConductorsWithoutRide =
                 await _context.Employees
-                    .Where(e => e.PermissionID == conductorPermissionId)
+                    .Include(e => e.Permission)
+                    .Where(e => e.Permission.Name == "conductor")
                     .Include(e => e.Conductors)
                     .Where(e => e.Conductors.Count == 0)
                     .ToListAsync();
-            
-            
-            /*var allIdsConductorsWithRide = await _context.Conductors
-                .Include(c => c.Ride)
-                .Include(c => c.ConductorEmployee)
-                .Select(e => e.ID)
-                .ToListAsync();
-
-            var ListConductorsWithoutRide = new List<Models.Employee>();*/
-
-            /*try
-            {
-                if (TempListConductor.Count > 0)
-                    foreach (var e in TempListConductor)
-                        if (!allIdsConductorsWithRide.Contains(e.ID))
-                            ListConductorsWithoutRide.Add(e);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("ERROR", e);
-            }*/
 
             try
             {
                 ListRideCars = new SelectList(TempListCar, "ID", "Name");
                 ListAvailableCars = new SelectList(_context.Car.Where(c => c.Available), "ID", "Name");
-                ListRideConductors = new SelectList(TempConductors, "ID", "Name");
+                ListRideConductors = new SelectList(TempRideConductors, "ID", "Name");
                 ListAvailableConductors = new SelectList(TempListConductorsWithoutRide, "ID", "Name");
                 Engines = new SelectList(_context.Engines, "ID", "Name");
                 Employees = new SelectList(_context.Employees, "ID", "Name");
@@ -126,13 +102,32 @@ namespace TrainStation.Pages.Ride
             return Page();
         }
 
-        public IActionResult OnPostDelete()
+        public IActionResult OnPostDeleteCar()
         {
             try
             {
                 _carsController.RemoveCarFromRide(SelectedCarId);
                 _context.SaveChanges();
                 _carController.MakeCarAvailable(SelectedCarId);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("ERROR", e);
+            }
+
+            Console.WriteLine("ON Delete ");
+            SelectedCarId = 0;
+            return RedirectToPage("Edit", Ride.ID);
+        }
+        
+        public IActionResult OnPostDeleteConductor(int selectedConductorId)
+        {
+            try
+            {
+                _conductorsController.RemoveConductorFromRide(selectedConductorId, Ride.ID);
+                _context.SaveChanges();
+                _employeeController.UpdateEmployee(selectedConductorId);
                 _context.SaveChanges();
             }
             catch (Exception e)
@@ -162,7 +157,7 @@ namespace TrainStation.Pages.Ride
             return RedirectToPage("Edit", Ride.ID);
         }
 
-        public IActionResult OnPostAdd()
+        public IActionResult OnPostAddCar()
         {
             Console.WriteLine("ON Add " + SelectedCarId);
             try

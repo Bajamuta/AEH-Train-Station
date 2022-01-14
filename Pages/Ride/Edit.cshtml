@@ -35,10 +35,10 @@
                 <div class="row">
                     <div class="col-4">
                         <h4>ALREADY IN THE RIDE</h4>
-                        <select size="8" asp-for="SelectedConductorId" class="form-control" asp-items="Model.ListRideConductors">
+                        <select name="selectedConductorId" size="8" asp-for="SelectedConductorId" class="form-control" asp-items="Model.ListRideConductors">
                             <option value="" disabled>--- Select Conductor ---</option>
                         </select>
-                        <button asp-page-handler="delete" class="btn btn-outline-primary">Remove</button>
+                        <button asp-page-handler="deleteConductor" class="btn btn-outline-primary">Remove</button>
                     </div>
                     <div class="col-4">
                         <h4>AVAILABLE CONDUCTORS</h4>
@@ -57,14 +57,14 @@
                         <select size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListRideCars">
                             <option value="" disabled>--- Select Car ---</option>
                         </select>
-                        <button asp-page-handler="delete" class="btn btn-outline-primary">Remove</button>
+                        <button asp-page-handler="deleteCar" class="btn btn-outline-primary">Remove</button>
                     </div>
                     <div class="col-4">
                         <h4>AVAILABLE CARS</h4>
                         <select size="8" asp-for="SelectedCarId" class="form-control" asp-items="Model.ListAvailableCars">
                             <option value="" disabled>--- Select Car ---</option>
                         </select>
-                        <button asp-page-handler="add" class="btn btn-outline-primary">Add</button>
+                        <button asp-page-handler="addCar" class="btn btn-outline-primary">Add</button>
                     </div>
                 </div>
             </div>
