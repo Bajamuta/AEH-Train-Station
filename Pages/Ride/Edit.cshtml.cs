@@ -19,7 +19,6 @@ namespace TrainStation.Pages.Ride
         private readonly ConductorsController _conductorsController;
         private readonly TrainStationContext _context;
         private readonly EmployeeController _employeeController;
-        private readonly EngineController _engineController;
 
         public EditModel(TrainStationContext context)
         {
@@ -27,7 +26,6 @@ namespace TrainStation.Pages.Ride
             _carsController = new CarsController(context);
             _carController = new CarController(context);
             _employeeController = new EmployeeController(context);
-            _engineController = new EngineController(context);
             _conductorsController = new ConductorsController(context);
         }
 
@@ -51,6 +49,7 @@ namespace TrainStation.Pages.Ride
         public List<Models.Car> TempListCar { get; set; }
         public List<Models.Employee> TempListConductorsWithoutRide { get; set; }
 
+        //TODO DRIVERS NOT EMPLOYEES
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null) return NotFound();

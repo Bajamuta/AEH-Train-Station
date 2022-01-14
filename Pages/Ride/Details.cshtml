@@ -6,7 +6,7 @@
     ViewData["Title"] = "Ride Details";
 }
 
-<h1>Details</h1>
+<h1 xmlns="http://www.w3.org/1999/html">Details</h1>
 
 <div>
     <h4>Ride @Html.DisplayFor(model => model.Ride.ID)</h4>
@@ -31,23 +31,31 @@
             @Html.DisplayFor(model => model.Ride.Engine.Name)
         </dd>
         <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Ride.Conductors)
-                </dt>
+            @Html.DisplayNameFor(model => model.Ride.Conductors)
+        </dt>
+        <dd class="col-sm-10">
+            <ul>
                 @foreach (Conductor c in Model.Ride.Conductors)
                 {
-                    <dd class="col-sm-10">
+                    <li>
                         @Html.DisplayFor(model => c.ConductorEmployee.Name)
-                    </dd>
+                    </li>
                 }
+            </ul>
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ride.Cars)
         </dt>
-        @foreach (Cars c in Model.Ride.Cars)
-        {
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => c.Car.Name)
-            </dd>
-        }
+        <dd class="col-sm-10">
+            <ul>
+                @foreach (Cars c in Model.Ride.Cars)
+                {
+                    <li>
+                        @Html.DisplayFor(model => c.Car.Name)
+                    </li>
+                }
+            </ul>
+        </dd>
     </dl>
 </div>
 <div>

@@ -13,6 +13,7 @@ namespace TrainStation.Pages.Journey
     public class CreateModel : PageModel
     {
         private readonly TrainStation.Data.TrainStationContext _context;
+        
 
         public CreateModel(TrainStation.Data.TrainStationContext context)
         {

@@ -32,6 +32,8 @@ namespace TrainStation.Pages.Journey
                 .Include(j => j.Ride.Cars)
                 .Include(j => j.Ride.Conductors)
                 .Include(j => j.Ride.Engine)
+                .Include(j => j.Tickets)
+                .AsSplitQuery()
                 .ToListAsync();
         }
     }
