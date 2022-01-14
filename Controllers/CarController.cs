@@ -49,7 +49,6 @@ namespace TrainStation.Controllers
             return _context.Car.Where(v => v.Available == true)
                 .Include(c => c.Tickets)
                 .Include(c => c.Cars)
-                .AsNoTracking()
                 .AsEnumerable();
         }
 

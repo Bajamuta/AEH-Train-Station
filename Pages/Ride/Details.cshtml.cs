@@ -32,6 +32,11 @@ namespace TrainStation.Pages.Ride
                 .Include(r => r.Driver)
                 .Include(r => r.Engine)
                 .Include(r => r.Cars)
+                .ThenInclude(c => c.Car)
+                .Include(r => r.Conductors)
+                .ThenInclude(c => c.ConductorEmployee)
+                .Include(r => r.Journeys)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Ride == null)

@@ -59,7 +59,9 @@ namespace TrainStation.Pages.Ride
                 .Include(r => r.Driver)
                 .Include(r => r.Engine)
                 .Include(r => r.Cars)
-                .AsNoTracking()
+                .Include(r => r.Conductors)
+                .Include(r => r.Journeys)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Ride == null) return NotFound();
@@ -190,6 +192,8 @@ namespace TrainStation.Pages.Ride
                 Ride.Driver = await _context.Employees.FirstAsync(e => e.ID == SelectedDriverId);
                 Ride.EngineId = SelectedEngineId;
                 Ride.Engine = await _context.Engines.FirstAsync(e => e.ID == SelectedEngineId);
+                Ride.Conductors = await _context.Conductors.Where(c => c.RideID == Ride.ID).ToListAsync();
+                Ride.Cars = await _context.Cars.Where(c => c.RideID == Ride.ID).ToListAsync();
                 _context.Attach(Ride).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
