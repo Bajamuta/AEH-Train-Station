@@ -135,8 +135,7 @@ namespace TrainStation.Pages.Ride
             {
                 throw new Exception("ERROR", e);
             }
-
-            Console.WriteLine("ON Delete ");
+            
             SelectedCarId = 0;
             return RedirectToPage("Edit", Ride.ID);
         }
@@ -181,8 +180,6 @@ namespace TrainStation.Pages.Ride
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            Console.WriteLine("OnPostAsync");
-
             if (!ModelState.IsValid) return Page();
 
             try

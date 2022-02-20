@@ -20,7 +20,7 @@ namespace TrainStation.Controllers
         
         public EntityEntry<Conductor> AddConductorToRide(int employeeId, int rideId)
         {
-            Console.WriteLine("ADDING NEW CARS-RIDE " + employeeId + " " + rideId);
+            Console.WriteLine("ADDING NEW CONDUCTOR " + employeeId + " " + rideId);
             Conductor c = new Conductor {ConductorID = employeeId, RideID = rideId};
             _context.Attach(c).State = EntityState.Added;
             return _context.Conductors.Add(c);

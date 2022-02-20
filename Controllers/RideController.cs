@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using TrainStation.Data;
+using TrainStation.Models;
 
 namespace TrainStation.Controllers
 {
@@ -11,6 +13,11 @@ namespace TrainStation.Controllers
         public RideController(TrainStationContext context)
         {
             _context = context;
+        }
+
+        public IActionResult Create()
+        {
+            return View();
         }
 
         public IActionResult Edit()
