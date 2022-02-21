@@ -116,8 +116,6 @@ namespace TrainStation.Pages.Ride
             {
                 throw new Exception("ERROR", e);
             }
-
-            Console.WriteLine("ON Delete ");
             SelectedCarId = 0;
             return RedirectToPage("Edit", Ride.ID);
         }
@@ -142,7 +140,6 @@ namespace TrainStation.Pages.Ride
         
         public IActionResult OnPostAddConductor(int selectedConductorId)
         {
-            Console.WriteLine("ON Add " + selectedConductorId);
             try
             {
                 _conductorsController.AddConductorToRide(selectedConductorId, Ride.ID);
@@ -159,7 +156,6 @@ namespace TrainStation.Pages.Ride
 
         public IActionResult OnPostAddCar(int selectedCarId)
         {
-            Console.WriteLine("ON Add " + selectedCarId);
             try
             {
                 _carsController.AddCarToRide(selectedCarId, Ride.ID);

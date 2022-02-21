@@ -65,7 +65,6 @@ namespace TrainStation.Models
 
         public TimeSpan CalculateBreakTime(int temp)
         {
-            Console.WriteLine("Calculate Break " + temp);
             TimeSpan br;
 
             if (temp < 10)

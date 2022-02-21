@@ -96,10 +96,12 @@
             @Html.DisplayNameFor(model => model.Ride.Cars)
         </dt>
         <ul class="col-sm-10">
-            @foreach (Cars c in Model.Cars)
+            @foreach (TempCar c in Model.ListTempCars)
             {
                 <li>
-                    @Html.DisplayFor(model => c.Car.Name)  (Sitting: @c.Car.Sitting / Standing: @c.Car.Standing)
+                    @Html.DisplayFor(model => c.Name)
+                    (Sitting: @Html.DisplayFor(model => c.LeftSitting)/ @Html.DisplayFor(model => c.AllSitting),
+                    Standing: @Html.DisplayFor(model => c.LeftStanding) / @Html.DisplayFor(model => c.AllStanding))
                 </li> 
             }
         </ul>

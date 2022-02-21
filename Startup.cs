@@ -31,7 +31,7 @@ namespace TrainStation
         {
             Console.WriteLine("CONFIGURE SERVICES");
             // services.AddDbContext<TrainStationContext>();
-            Console.WriteLine(Configuration.GetConnectionString("TrainStationContext"));
+            /*Console.WriteLine(Configuration.GetConnectionString("TrainStationContext"))*/;
             services.AddDbContext<TrainStationContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TrainStationContext"));
