@@ -68,6 +68,14 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Journey.Status.Name)
         </dd>
+        <dt class="col-sm-2">
+            Available tickets: 
+        </dt>
+        <dd class="col-sm-10">
+            Sitting: @Html.DisplayFor(model => model.AvailableSittingPlaces) /
+            Standing: @Html.DisplayFor(model => model.AvailableStandingPlaces) 
+            (@Html.DisplayFor(model => Model.NumberOfAllPlaces))
+        </dd>
     </dl>
 </div>
 <div>

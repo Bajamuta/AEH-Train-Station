@@ -82,14 +82,34 @@
              @Html.DisplayFor(model => model.Ride.Driver.Name)
          </dd>       
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ride.Conductors)
+        </dt>
+        <ul class="col-sm-10">
+            @foreach (Conductor c in Model.Ride.Conductors)
+            {
+                <li>
+                    @Html.DisplayFor(model => c.ConductorEmployee.Name)
+                </li> 
+            }
+        </ul>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ride.Cars)
         </dt>
-        @foreach (Cars c in Model.Cars)
-        {
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => c.Car.Name)
-            </dd> 
-        }
+        <ul class="col-sm-10">
+            @foreach (Cars c in Model.Cars)
+            {
+                <li>
+                    @Html.DisplayFor(model => c.Car.Name)  (Sitting: @c.Car.Sitting / Standing: @c.Car.Standing)
+                </li> 
+            }
+        </ul>
+        <dt class="col-sm-2">
+            All available tickets
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumberOfTickets)
+        </dd>
+        
     </dl>
 </div>
 <div>

@@ -22,6 +22,7 @@ namespace TrainStation.Pages.Journey
         public Models.Journey Journey { get; set; }
         public Models.Ride Ride { get; set; }
         public ICollection<Cars> Cars { get; set; }
+        public int NumberOfTickets { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,6 +36,7 @@ namespace TrainStation.Pages.Journey
                 .Include(j => j.StartingPlace)
                 .Include(j => j.Status)
                 .Include(j => j.Ride)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Journey == null)
@@ -46,24 +48,27 @@ namespace TrainStation.Pages.Journey
                 .Include(d => d.Driver)
                 .Include(d => d.Cars)
                 .Include(d => d.Conductors)
+                .ThenInclude(c => c.ConductorEmployee)
                 .Include(d => d.Engine)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(r => r.ID == Journey.RideId);
 
             Cars = await _context.Cars
                 .Include(c => c.Car)
+                .ThenInclude(c => c.Tickets)
                 .Include(c => c.Ride)
                 .ToListAsync();
-            
-            Console.WriteLine(Cars);
-            
-            /*Cars = await _context.Car
-                .Include(c => c.ID)
-                .Include(c => c.Name)
-                .Include(c => c.Sitting)
-                .Include(c => c.Standing)
-                .Include(c => c.Available)
-                .FirstOrDefaultAsync(c => c)*/
-            
+
+            NumberOfTickets = 0;
+
+            await _context.Cars
+                .Include(c => c.Car)
+                .Select(c => c.Car)
+                .ForEachAsync(x =>
+                {
+                    NumberOfTickets += x.Sitting + x.Standing;
+                });
+
             return Page();
         }
     }

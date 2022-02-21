@@ -60,10 +60,6 @@ namespace TrainStation.Pages.Ride
 
             try
             {
-                /*Ride.DriverId = SelectedDriverId;
-                Ride.Driver = await _context.Employees.FirstAsync(e => e.ID == SelectedDriverId);
-                Ride.EngineId = SelectedEngineId;
-                Ride.Engine = await _context.Engines.FirstAsync(e => e.ID == SelectedEngineId);*/
                 _context.Attach(Ride).State = EntityState.Added;
                 await _context.SaveChangesAsync();
             }
