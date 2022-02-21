@@ -9,36 +9,41 @@
 
 <h1>Buy ticket</h1>
 
-<h4>Ticket No. @Model.Ticket.ID</h4>
+<h4>Ticket No. @Model.Ticket.Number</h4>
 <hr />
 <div class="row">
     <div class="col-12">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Journey.StartingDateTime)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Journey.StartingDateTime)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Journey.StartingPlace)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Journey.StartingPlace.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Journey.DestinationPlace)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Journey.DestinationPlace.Name)
-            </dd>
+            <div class="form-group">
+                <label asp-for="Journey.ID" class="control-label"></label>
+                <input asp-for="Journey.ID" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.SoldDateTime" class="control-label"></label>
+                <input asp-for="Ticket.SoldDateTime" type="date" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.StartingDateTime" class="control-label"></label>
+                <input asp-for="Journey.StartingDateTime" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.StartingPlace" class="control-label"></label>
+                <input asp-for="Journey.StartingPlace.Name" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.DestinationPlace" class="control-label"></label>
+                <input asp-for="Journey.DestinationPlace.Name" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.FullTimeRide" class="control-label"></label>
+                <input asp-for="Journey.FullTimeRide" class="form-control" readonly/>
+            </div>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Journey.Ride.Cars)
             </dt>
             <dd class="col-sm-10">
                 <ul>
-                    
                     @foreach (TempCar c in Model.ListTempCars)
                     {
                         <li>
@@ -57,12 +62,10 @@
                 <label asp-for="Ticket.TypeOfTicket" class="control-label"></label>
                 <select asp-for="Ticket.TypeOfTicketID" class="form-control" asp-items="Model.ListTypesOfTickets"></select>
             </div>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Journey.TicketBasePrice)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Journey.TicketBasePrice)
-            </dd> 
+            <div class="form-group">
+                <label asp-for="Journey.TicketBasePrice" class="control-label"></label>
+                <input asp-for="Journey.TicketBasePrice" class="form-control" readonly/>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Buy" class="btn btn-primary"/>
             </div>

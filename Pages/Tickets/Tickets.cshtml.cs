@@ -20,7 +20,7 @@ namespace TrainStation.Pages.Tickets
             _context = context;
         }
         
-        public Models.Journey Journey { get; set; }
+        [BindProperty] public Models.Journey Journey { get; set; }
         [BindProperty] public Models.Ticket Ticket { get; set; }
         public SelectList ListJourneyCars { get; set; }
         public SelectList ListTypesOfTickets { get; set; }
@@ -28,6 +28,7 @@ namespace TrainStation.Pages.Tickets
         public List<Ticket> AllTicketsInJourney { get; set; }
         public List<Models.TypeOfTicket> TypeOfTickets { get; set; }
         public List<TempCar> ListTempCars { get; set; }
+        [BindProperty] public Models.Tickets NewTickets { get; set; }
 
         
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -38,16 +39,23 @@ namespace TrainStation.Pages.Tickets
                 .Include(j => j.Ride)
                 .ThenInclude(r => r.Cars)
                 .ThenInclude(c => c.Car)
+                .Include(j => j.Status)
                 .Include(j => j.StartingPlace)
                 .Include(j => j.DestinationPlace)
                 .Include(j => j.Tickets)
                 .ThenInclude(t => t.Ticket)
                 .AsSplitQuery()
-                .FirstOrDefaultAsync(j => j.ID == id);
-
-            Ticket = new Ticket();
+                .FirstAsync(j => j.ID == id);
 
             if (Journey == null) return NotFound();
+
+            Ticket = new Ticket();
+            
+            Ticket.Number = _context.Journeys
+                .Include(j => j.Tickets)
+                .Where(j => j.ID == Journey.ID)
+                .Select(j => j.Tickets)
+                .Count() + 1;
 
             AllCarsInJourney = await _context.Journeys
                 .Include(j => j.Ride)
@@ -139,18 +147,54 @@ namespace TrainStation.Pages.Tickets
             {
                 throw new Exception("Error", e);
             }
-
             return Page();
         }
         
         public async Task<IActionResult> OnPostAsync()
         {
+            Models.Journey tempJourney = await _context.Journeys
+                .Include(j => j.Ride)
+                .Include(j => j.Status)
+                .Include(j => j.Tickets)
+                .Include(j => j.StartingPlace)
+                .Include(j => j.DestinationPlace)
+                .AsSplitQuery()
+                .FirstAsync(j => j.ID == Journey.ID);
+
             if (!ModelState.IsValid) return Page();
+            
+            Ticket.Number = _context.Journeys
+                .Include(j => j.Tickets)
+                .Where(j => j.ID == Journey.ID)
+                .Select(j => j.Tickets)
+                .Count() + 1;
+            Ticket.SoldDateTime = DateTime.Now;
+            Ticket.SoldPrice = tempJourney.TicketBasePrice;
+
+            Ticket.Car = await _context.Car
+                .Include(c => c.Cars)
+                .Include(c => c.Tickets)
+                .AsSplitQuery()
+                .FirstAsync(c => c.ID == Ticket.CarID);
+
+            Ticket.TypeOfTicket = await _context.TypesOfTickets
+                .Include(t => t.Tickets)
+                .FirstAsync(t => t.ID == Ticket.TypeOfTicketID);
+            
+            NewTickets = new Models.Tickets
+            {
+                JourneyID = tempJourney.ID,
+                Journey = tempJourney,
+                Ticket = Ticket,
+                TicketID = Ticket.ID
+            };
 
             try
             {
-                /*_context.Attach(Ride).State = EntityState.Modified;
-                await _context.SaveChangesAsync();*/
+                _context.Attach(Ticket).State = EntityState.Added;
+                _context.Attach(NewTickets).State = EntityState.Added;
+                _context.Attach(tempJourney).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -158,6 +202,14 @@ namespace TrainStation.Pages.Tickets
                     return NotFound();
                 throw;
             }
+
+            Ticket.SoldDateTime = DateTime.Now;
+            
+            Console.WriteLine(Ticket.ID + " " + Ticket.Number + " " + Ticket.Car.Name + " " + Ticket.TypeOfTicket.Name);
+            
+            //create new Tickets
+            //update Car
+            //update Journey
 
             return RedirectToPage("./Index");
         }
